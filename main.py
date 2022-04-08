@@ -1,5 +1,6 @@
 from tkinter import *
-from game import Game
+from src.game import Game
+from src.mainmenu import MainMenu
 
 '''source: https://stackoverflow.com/questions/7546050/switch-between-two-frames-in-tkinter'''
 
@@ -53,17 +54,6 @@ class SpellWellApp(Tk):
         '''Show a frame for the given page name'''
         frame = self.frames[page_name]
         frame.tkraise()
-
-
-class MainMenu(Frame):
-    
-    def __init__(self, parent, controller, width, height):
-        Frame.__init__(self, parent, width=width, height=height)
-        #self.statusLabel = tkinter.Label(parent, text="", width= 20)
-        #self.statusLabel.grid()
-        self.title = Label(self, text="Spell Well", width= 20)
-        self.title.pack()
-        self.controller = controller
 
 if __name__ == "__main__":
     app = SpellWellApp()
