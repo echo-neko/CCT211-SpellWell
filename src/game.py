@@ -2,13 +2,13 @@ from tkinter import *
 import tkinter
 import re
 import random
-from src.constants import CURRDICT, DICTS
+from src.constants import CURRDICT, DB
 
 class Game(Frame):
 
-    dictionary = DICTS[CURRDICT]
+    dictionary = DB.getDict(CURRDICT)
     remainingKeys = list(dictionary)
-    currKey = "cat"
+    currKey = ""
     
     def __init__(self, parent, controller, width, height):
         Frame.__init__(self, parent, width=width, height=height)
@@ -36,11 +36,12 @@ class Game(Frame):
             self.statusLabel.configure(text="")
             self.entry.delete(0, END)
             if (len(self.remainingKeys) == 0) :
-                self.statusLabel.configure(text="you win!")
+                self.gameWin()
             else:
                 self.randomKey()
         else:
-            self.statusLabel.configure(text="try again")
+            if (len(self.remainingKeys) != 0) :            
+                self.statusLabel.configure(text="try again")
         
 
     def randomKey(self):
@@ -63,3 +64,19 @@ class Game(Frame):
         i = len(self.currKey)
         if len(value) > i: 
             self.wordValue.set(value[:i])
+
+    def newGame(self):
+        # TODO call this from other scenes before switching to this scene
+        # OR call this every time scene is shown (if that's an existing thing)
+        self.dictionary = DB.getDict(CURRDICT)
+        self.remainingKeys = list(self.dictionary)
+        self.currKey = ""
+        self.button["state"] = "normal"
+        self.statusLabel.configure(text="")
+        self.randomKey()
+
+    def gameWin(self):
+        self.definition.configure(text="")
+        self.statusLabel.configure(text="you win!")
+        # TODO disable button 
+        self.button["state"] = "disabled"
