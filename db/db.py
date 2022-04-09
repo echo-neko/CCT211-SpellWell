@@ -45,7 +45,6 @@ class DB():
 
     def getDict(self, name):
         self.connect_database()
-        print("SELECT * FROM \'{}\'".format(name))
         self.cur.execute("SELECT * FROM 'DICTS'")
         rows = self.cur.fetchall()
         self.cur.execute("SELECT * FROM 'animals'")

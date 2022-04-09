@@ -43,7 +43,6 @@ class SpellWellApp(Tk):
             self.show_frame("MainMenu")
 
         def showGame():
-            # TODO set currdict and reset scene's dict and remaining keys
             self.show_frame("Game")
             self.frames["Game"].newGame()
 
