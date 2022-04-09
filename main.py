@@ -1,7 +1,7 @@
 from tkinter import *
 from src.game import Game
 from src.mainmenu import MainMenu
-from src.game import About
+from src.about import About
 
 '''source: https://stackoverflow.com/questions/7546050/switch-between-two-frames-in-tkinter'''
 
@@ -41,9 +41,11 @@ class SpellWellApp(Tk):
 
 
         def showMainMenu():
+            #redirects player to the main menu
             self.show_frame("MainMenu")
 
         def showGame():
+            #shows the game frame/window
             self.show_frame("Game")
             self.frames["Game"].newGame()
 
@@ -51,8 +53,9 @@ class SpellWellApp(Tk):
             pass
 
         def showAbout():
+            #shows the about frame/window
             self.show_frame("About")
-            pass
+
 
         menubar = Menu(self)
         actionsMenu = Menu(menubar, tearoff=0)
