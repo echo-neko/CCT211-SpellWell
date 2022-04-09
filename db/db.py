@@ -1,22 +1,9 @@
 import sqlite3
+import os
 
 class DB():
 
     def __init__(self):
-        self.connect_database()
-        self.close_database()
-
-    def connect_database(self):
-        # connection
-        self.conn = sqlite3.connect('CCT211-SpellWell/db/spellwell_db')
-        # cursor
-        self.cur = self.conn.cursor()
-
-    def close_database(self):
-        self.conn.commit()
-        self.conn.close()
-
-    def create_database(self):
         self.connect_database()
         self.cur.execute('''DROP TABLE IF EXISTS DICTS;''')
         self.cur.execute('''CREATE TABLE IF NOT EXISTS "DICTS" (
@@ -42,6 +29,16 @@ class DB():
                         ('{}', '{}')'''.format(word, PRESETDICTS[dictname][word]))
 
         self.close_database()
+
+    def connect_database(self):
+        # connection
+        self.conn = sqlite3.connect(os.path.abspath('./CCT211-SpellWell/db/spellwell_db'))
+        # cursor
+        self.cur = self.conn.cursor()
+
+    def close_database(self):
+        self.conn.commit()
+        self.conn.close()
 
     def getDict(self, name):
         self.connect_database()
