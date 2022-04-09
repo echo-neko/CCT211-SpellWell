@@ -1,6 +1,7 @@
 from tkinter import *
 from src.game import Game
 from src.mainmenu import MainMenu
+from src.game import About
 
 '''source: https://stackoverflow.com/questions/7546050/switch-between-two-frames-in-tkinter'''
 
@@ -10,11 +11,13 @@ class SpellWellApp(Tk):
         Tk.__init__(self, *args, **kwargs)
 
         self.title("Spell Well")
+        
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
         # will be raised above the others
         parent = Frame(self, width=640, height=480)
+
         
         parent.pack(side="top", fill="both", expand=True)
         parent.grid_rowconfigure(0, weight=1)
@@ -32,6 +35,7 @@ class SpellWellApp(Tk):
             # will be the one that is visible.
             frame.grid(row=0, column=0, sticky="nsew")
             frame.pack_propagate(0)
+            frame.configure(bg='pink')
 
         self.show_frame("MainMenu")
 
@@ -43,11 +47,22 @@ class SpellWellApp(Tk):
             self.show_frame("Game")
             self.frames["Game"].newGame()
 
+        def showScore():
+            pass
+
+        def showAbout():
+            self.show_frame("About")
+            pass
+
         menubar = Menu(self)
         actionsMenu = Menu(menubar, tearoff=0)
-        actionsMenu.add_command(label="MainMenu", command=showMainMenu)
-        actionsMenu.add_command(label="Game", command=showGame)
+        actionsMenu.add_command(label="Main Menu", command=showMainMenu)
+        actionsMenu.add_command(label="Play", command=showGame)
+        actionsMenu.add_command(label="High Scores", command=showScore)
+        actionsMenu.add_command(label="About", command=showAbout)
         menubar.add_cascade(label="Menu", menu=actionsMenu)
+
+
 
         self.config(menu=menubar) 
 
