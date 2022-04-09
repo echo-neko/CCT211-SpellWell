@@ -1,7 +1,6 @@
 from tkinter import *
 from src.game import Game
 from src.mainmenu import MainMenu
-from src.constants import DB
 
 '''source: https://stackoverflow.com/questions/7546050/switch-between-two-frames-in-tkinter'''
 
@@ -11,8 +10,6 @@ class SpellWellApp(Tk):
         Tk.__init__(self, *args, **kwargs)
 
         self.title("Spell Well")
-
-        DB.create_database()
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
