@@ -40,6 +40,7 @@ class SpellWellApp(Tk):
         for F in (MainMenu, Game, EditDict, DictList, About):
             page_name = F.__name__
             frame = F(parent=parent, controller=self, width=490, height=630)
+            #frame.resizable(False, False)
             
             self.frames[page_name] = frame
 
