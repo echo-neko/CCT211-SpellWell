@@ -44,10 +44,8 @@ class DB():
     def saveDict(self, dictname, dictionary):
         self.connect_database()
         
-        if dictname in list(PRESETDICTS):    
-            self.cur.execute("INSERT OR IGNORE INTO DICTS ('Name', 'Is_Preset') VALUES\n('{}', 'TRUE')".format(dictname))
-        else:
-            self.cur.execute("INSERT OR IGNORE INTO DICTS ('Name', 'Is_Preset') VALUES\n('{}', 'FALSE')".format(dictname))
+        # you can only edit user created (non-preset) dictionaries 
+        self.cur.execute("INSERT OR IGNORE INTO DICTS ('Name', 'Is_Preset') VALUES\n('{}', 'FALSE')".format(dictname))
 
         self.cur.execute('DROP TABLE IF EXISTS "{}";'.format(dictname))
     
@@ -61,6 +59,11 @@ class DB():
         for word in list(dictionary):
             self.cur.execute('''INSERT OR REPLACE INTO \'''' + dictname + '''' ('Word', 'Definition') VALUES''' + '''
                     ('{}', '{}')'''.format(word, dictionary[word]))
+        self.close_database()
+
+    def deleteDict(self, dictname):
+        self.connect_database()
+        self.cur.execute('DROP TABLE IF EXISTS "{}";'.format(dictname))
         self.close_database()
 
 
