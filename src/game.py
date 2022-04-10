@@ -12,9 +12,9 @@ class Game(Frame):
         self.timer = Timer(self, controller)
         
         self.definition = Label(self, text="", bg='pink', font=("Garamond", 18))
-        self.definition.pack(pady=18)
+        self.definition.pack(pady=25)
 
-        self.underscores = Label(self, text="", bg='pink', font=("Garamond", 18))
+        self.underscores = Label(self, text="", bg='pink', font=("Garamond", 25))
         self.underscores.pack(pady=2)
 
         self.wordValue = StringVar()
@@ -38,7 +38,7 @@ class Game(Frame):
     def checkEntry(self):
         if self.entry.get().lower() == self.currKey.lower():
             # correct answer
-            self.statusLabel.configure(text="", bg='pink')
+            self.statusLabel.configure(text="", bg='pink', font=("Garamond", 18))
             self.entry.delete(0, END)
             self.updateScore()
             if (len(self.remainingKeys) == 0) :
@@ -48,7 +48,7 @@ class Game(Frame):
         else:
             # wrong answer
             if (len(self.remainingKeys) != 0) :            
-                self.statusLabel.configure(text="try again",bg='pink')
+                self.statusLabel.configure(text="try again",bg='pink', font=("Garamond", 18))
         
 
     def randomKey(self):
