@@ -29,7 +29,7 @@ class SpellWellApp(Tk):
         self.frames = {}
         for F in (MainMenu, Game, EditDict, DictList, About):
             page_name = F.__name__
-            frame = F(parent=parent, controller=self, width=460, height=480)
+            frame = F(parent=parent, controller=self, width=460, height=750)
             
             self.frames[page_name] = frame
 
