@@ -65,14 +65,13 @@ class MainMenu(Frame):
 
  
         #links
-        #command=self.parent.master.showAbout()
-        button1= Button(self, text="About", width=8, bg="pink",font= buttonFont)
+        button1= Button(self, text="About", width=8,  highlightbackground='pink', fg="black", font= buttonFont, command=self.parent.master.showAbout)
         button1.pack(pady=3)
 
-        button2= Button(self, text="Play", width=8, bg="pink",font= buttonFont)
+        button2= Button(self, text="Play", width=8,highlightbackground='pink', fg="black", font= buttonFont, command=self.parent.master.showGame)
         button2.pack(pady=3)
 
-        button2= Button(self, text="View High Scores", width=15, bg="pink",font= buttonFont)
+        button2= Button(self, text="View High Scores", height=2, width=15, highlightbackground='pink', fg="black", font= buttonFont, command=self.parent.master.showScore)
         button2.pack(pady=3)
         
         
