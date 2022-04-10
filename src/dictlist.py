@@ -2,6 +2,10 @@ from tkinter import *
 import src.constants as const
 
 class DictList(Frame):
+    '''
+    This class is for showing players the dictionary list of the words and definitions
+    and it can allow users to edit and create their own dictionaries 
+    '''
 
     currList = []
 
