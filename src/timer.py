@@ -29,12 +29,11 @@ class Timer(Frame):
         self.pack()
 
 
-    def setTimer(self, minute, second):
-        temp =  int(minute)*60 + int(second)
-        if temp >-1:
+    def setTimer(self):
+        if self.temp >-1:
             
             # divmod(firstvalue = temp//60, secondvalue = temp%60)
-            mins,secs = divmod(temp,60)
+            mins,secs = divmod(self.temp,60)
     
             # using format () method to store the value up to
             # two decimal places
@@ -44,20 +43,18 @@ class Timer(Frame):
             # updating the GUI window 
             self.update()
 
-            if secs == 0:
-                mins -= 1
-                secs = 59
-            else:
-                secs -= 1
+            self.temp -= 1
 
             if not self.stop:
-                self.after(1000, self.setTimer, mins, secs)
-        else:
+                self.after(1000, self.setTimer)
+        elif (not self.stop):
             self.parent.gameEnd(False)
 
     def startTimer(self, minute, second):
         self.stop = False
-        self.setTimer(minute, second)
+        self.temp =  int(minute)*60 + int(second)
+        self.setTimer()
 
     def stopTimer(self):
         self.stop = True
+        

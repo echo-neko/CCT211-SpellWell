@@ -1,18 +1,10 @@
 from tkinter import *
 import re
 import random
-from src.constants import CURRDICT, DB, SECS_PER_WORD
+import src.constants as const
 from src.timer import Timer
 
 class Game(Frame):
-
-    dictionary = DB.getDict(CURRDICT)
-    remainingKeys = list(dictionary)
-    currKey = ""
-    score = 0
-
-    startMin = 0
-    startSec = 0
 
     def __init__(self, parent, controller, width, height):
         Frame.__init__(self, parent, width=width, height=height)
@@ -22,10 +14,13 @@ class Game(Frame):
         self.definition = Label(self, text="", bg='pink')
         self.definition.pack()
 
+        self.underscores = Label(self, text="", bg='pink')
+        self.underscores.pack()
+
         self.wordValue = StringVar()
         self.wordValue.trace('w', self.limitInputLength)
         valCommand = (self.register(self.isText), '%S')
-        self.entry = Entry(self, validate="all", validatecommand=valCommand, textvariable=self.wordValue)
+        self.entry = Entry(self, validate="all", validatecommand=valCommand, textvariable=self.wordValue, justify='center')
         self.entry.pack()
         
         self.button = Button(self, text="Check", bg='pink' ,width=10, command=self.checkEntry)
@@ -34,10 +29,10 @@ class Game(Frame):
         self.statusLabel = Label(self, text="",bg='pink', width=20)
         self.statusLabel.pack()
 
-        self.scoreLabel = Label(self, text="Score: " + str(self.score),bg='pink', width=20)
+        self.scoreLabel = Label(self, text="",bg='pink', width=20)
         self.scoreLabel.pack()
 
-        self.randomKey()
+        self.newGame()
 
     def checkEntry(self):
         if self.entry.get().lower() == self.currKey.lower():
@@ -59,13 +54,14 @@ class Game(Frame):
         self.currKey = random.choice(self.remainingKeys)
         self.remainingKeys.remove(self.currKey)
         self.definition.configure(text=self.dictionary[self.currKey])
+        self.underscores.configure(text="_ "*len(self.currKey))
         self.limitInputLength()
         self.startMin = int(self.timer.minute.get())
         self.startSec = int(self.timer.second.get())
 
 
     def isText(self, text):
-        alphabetRule = re.compile("[a-zA-Z]+")
+        alphabetRule = re.compile("[a-zA-Z -']+")
         if (re.match(alphabetRule, text)):
             return True
         else:
@@ -80,14 +76,16 @@ class Game(Frame):
 
     def updateScore(self):
         secsUsed = (self.startMin*60 + self.startSec) - (int(self.timer.minute.get())*60 + int(self.timer.second.get())) 
-        self.score +=  round((SECS_PER_WORD / secsUsed) * 10)
+        self.score +=  round((const.SECS_PER_WORD / secsUsed) * 10)
         self.scoreLabel.configure(text="Score: " + str(self.score),bg='pink')
 
     def newGame(self):
         # call this from other scenes before switching to this scene
-        self.dictionary = DB.getDict(CURRDICT)
+        self.dictionary = const.Db.getDict(const.CURRDICT)
         self.remainingKeys = list(self.dictionary)
-        self.timer.startTimer(0, len(self.remainingKeys)*SECS_PER_WORD)
+        self.timer.destroy()
+        self.timer = Timer(self, self.controller)
+        self.timer.startTimer(0, len(self.remainingKeys)*const.SECS_PER_WORD)
         self.currKey = ""
         self.score = 0
         self.button["state"] = "normal"
@@ -97,6 +95,7 @@ class Game(Frame):
 
     def gameEnd(self, won):
         self.definition.configure(text="")
+        self.underscores.configure(text="")
         self.timer.stopTimer()
         if won:
             self.statusLabel.configure(text="you win!",bg='pink')
