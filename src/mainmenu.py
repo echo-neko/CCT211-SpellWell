@@ -15,9 +15,7 @@ class MainMenu(Frame):
         self.parent = parent
 
         
-
-
-        # Define Font
+        # Define Fonts
 
         mainFont_i = Font(
 	family="Georgia",
@@ -53,27 +51,33 @@ class MainMenu(Frame):
         self.img = ImageTk.PhotoImage(Image.open("images/spellwell.png"))
 
         # Create a Label Widget to display the Image
-        self.imglabel = Label(self, image = self.img, bg='pink', width=500 , height=480)
+        self.imglabel = Label(self, image = self.img, bg='pink', width=380 , height=360)
     
         
         
 
  
-        #links
-        button1= Button(self, text="About", height=2, width=8,  highlightbackground='pink', fg="black", font= buttonFont, command=self.parent.master.showAbout)
+        #nav links
+        button1= Button(self, text="About", height=2, width=8,  highlightbackground='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showAbout)
         
 
-        button2= Button(self, text="Play", height=2, width=8,highlightbackground='pink', fg="black", font= buttonFont, command=self.parent.master.showGame)
+        button2= Button(self, text="Play", height=2, width=8,highlightbackground='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showDictList)
         
 
-        button3= Button(self, text="View High Scores", height=2, width=16, highlightbackground='pink', fg="black", font= buttonFont, command=self.parent.master.showScore)
+        button3= Button(self, text="View High Scores", height=2, width=16, highlightbackground='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showScore)
         
         
         self.title.pack(padx=6) #adds padding
         self.title2.pack(padx=6)
         self.imglabel.pack(padx=0)
+
+        #pack buttons
         button1.pack(padx=20, side=LEFT)
-        button2.pack(padx=10, side=LEFT)
+        
+        button2.pack(padx=10 , side=LEFT)
+        
         button3.pack(padx=20, side=LEFT)
+
+        
         self.controller = controller
         
