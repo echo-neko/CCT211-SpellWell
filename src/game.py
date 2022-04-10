@@ -1,12 +1,11 @@
 from tkinter import *
 import re
 import random
-from src.constants import CURRDICT, DB, SECS_PER_WORD
+import src.constants as const
 from src.timer import Timer
 
 class Game(Frame):
-
-    dictionary = DB.getDict(CURRDICT)
+    dictionary = const.Db.getDict(const.CURRDICT)
     remainingKeys = list(dictionary)
     currKey = ""
     score = 0
@@ -80,14 +79,16 @@ class Game(Frame):
 
     def updateScore(self):
         secsUsed = (self.startMin*60 + self.startSec) - (int(self.timer.minute.get())*60 + int(self.timer.second.get())) 
-        self.score +=  round((SECS_PER_WORD / secsUsed) * 10)
+        self.score +=  round((const.SECS_PER_WORD / secsUsed) * 10)
         self.scoreLabel.configure(text="Score: " + str(self.score))
 
     def newGame(self):
         # call this from other scenes before switching to this scene
-        self.dictionary = DB.getDict(CURRDICT)
+        self.dictionary = const.Db.getDict(const.CURRDICT)
         self.remainingKeys = list(self.dictionary)
-        self.timer.startTimer(0, len(self.remainingKeys)*SECS_PER_WORD)
+        self.timer.destroy()
+        self.timer = Timer(self, self.controller)
+        self.timer.startTimer(0, len(self.remainingKeys)*const.SECS_PER_WORD)
         self.currKey = ""
         self.score = 0
         self.button["state"] = "normal"

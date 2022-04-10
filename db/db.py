@@ -42,10 +42,6 @@ class DB():
 
     def getDict(self, name):
         self.connect_database()
-        self.cur.execute("SELECT * FROM 'DICTS'")
-        rows = self.cur.fetchall()
-        self.cur.execute("SELECT * FROM 'animals'")
-        rows = self.cur.fetchall()
         self.cur.execute("SELECT * FROM \'{}\'".format(name))
         rows = self.cur.fetchall()
         dictionary = {}
@@ -55,6 +51,21 @@ class DB():
             dictionary[word] = definition
         self.close_database()
         return dictionary 
+
+    def getDictNames(self, preset):
+        self.connect_database()
+        if preset:
+            preset = 'TRUE'
+        else:
+            preset = 'FALSE'
+        self.cur.execute("SELECT * FROM 'DICTS' WHERE Is_Preset='" + preset + "'")
+        rows = self.cur.fetchall()
+        names = []
+        for row in rows:
+            name = row[0]
+            names.append(name)
+        self.close_database()
+        return names 
 
 PRESETDICTS = {"animals":{"cat": "best animal that meows", 
                     "dog": "best animal that barks",

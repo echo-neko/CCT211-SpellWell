@@ -1,6 +1,7 @@
 from tkinter import *
 from src.game import Game
 from src.mainmenu import MainMenu
+from src.dictlist import DictList
 
 '''source: https://stackoverflow.com/questions/7546050/switch-between-two-frames-in-tkinter'''
 
@@ -21,7 +22,7 @@ class SpellWellApp(Tk):
         parent.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (MainMenu, Game):
+        for F in (MainMenu, Game, DictList):
             page_name = F.__name__
             frame = F(parent=parent, controller=self, width=460, height=480)
             
@@ -35,18 +36,11 @@ class SpellWellApp(Tk):
 
         self.show_frame("MainMenu")
 
-
-        def showMainMenu():
-            self.show_frame("MainMenu")
-
-        def showGame():
-            self.show_frame("Game")
-            self.frames["Game"].newGame()
-
         menubar = Menu(self)
         actionsMenu = Menu(menubar, tearoff=0)
-        actionsMenu.add_command(label="MainMenu", command=showMainMenu)
-        actionsMenu.add_command(label="Game", command=showGame)
+        actionsMenu.add_command(label="MainMenu", command=self.showMainMenu)
+        actionsMenu.add_command(label="Game", command=self.showGame)
+        actionsMenu.add_command(label="Dict List", command=self.showDictList)
         menubar.add_cascade(label="Menu", menu=actionsMenu)
 
         self.config(menu=menubar) 
@@ -55,6 +49,17 @@ class SpellWellApp(Tk):
         '''Show a frame for the given page name'''
         frame = self.frames[page_name]
         frame.tkraise()
+
+    def showMainMenu(self):
+        self.show_frame("MainMenu")
+
+    def showGame(self):
+        self.show_frame("Game")
+        self.frames["Game"].newGame()
+    
+    def showDictList(self):
+        self.show_frame("DictList")
+        self.frames["DictList"].showDicts(preset=True)
 
 if __name__ == "__main__":
     app = SpellWellApp()
