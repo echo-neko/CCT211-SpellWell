@@ -50,6 +50,10 @@ class DictList(Frame):
         dictNames = const.Db.getDictNames(preset)
         for name in dictNames:
             self.listADict(name)
+        if not preset:
+            createDictButton = Button(self, text="Make New", width=10, command= lambda: self.editDict(""))
+            createDictButton.pack()
+            self.currList.append(createDictButton)
 
     def playDict(self, name):
         '''
