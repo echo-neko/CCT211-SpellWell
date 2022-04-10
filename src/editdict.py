@@ -23,19 +23,19 @@ class EditDict(Frame):
         self.wordEntry = Entry(self, validate="all", validatecommand=valCommand)
         self.wordEntry.pack()
 
-        self.defEntry = Text(self, width = 50)
+        self.defEntry = Text(self, width = 50 , bg='pink' )
         self.defEntry.pack()
         
         self.wordButton = Button(self, text="Add", bg='pink' ,width=10, command=self.addEntry)
         self.wordButton.pack()
 
-        self.saveButton = Button(self, text="Save and Return to List", bg='pink', command=self.saveReturn)
+        self.saveButton = Button(self, text="Save and Return to List", command=self.saveReturn,  highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 16))
         self.saveButton.pack()
 
-        self.noSaveButton = Button(self, text="Return to List without Saving", bg='pink', command=self.noSaveReturn)
+        self.noSaveButton = Button(self, text="Return to List without Saving",command=self.noSaveReturn, highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 16))
         self.noSaveButton.pack()
 
-        self.statusLabel = Label(self, text="",bg='pink', width=20)
+        self.statusLabel = Label(self, text="", width=20, highlightbackground='pink', bg='pink', fg="black", font=("Georgia", 16))
         self.statusLabel.pack()
 
 
