@@ -40,6 +40,30 @@ class DB():
         self.conn.commit()
         self.conn.close()
 
+
+    def saveDict(self, dictname, dictionary):
+        self.connect_database()
+        
+        if dictname in list(PRESETDICTS):    
+            self.cur.execute("INSERT OR IGNORE INTO DICTS ('Name', 'Is_Preset') VALUES\n('{}', 'TRUE')".format(dictname))
+        else:
+            self.cur.execute("INSERT OR IGNORE INTO DICTS ('Name', 'Is_Preset') VALUES\n('{}', 'FALSE')".format(dictname))
+
+        self.cur.execute('DROP TABLE IF EXISTS "{}";'.format(dictname))
+    
+        command = '''CREATE TABLE "{}" (
+                "Word"	TEXT NOT NULL,
+                "Definition"	TEXT NOT NULL,
+                PRIMARY KEY("Word")
+                );'''.format(dictname)
+        self.cur.execute(command)
+
+        for word in list(dictionary):
+            self.cur.execute('''INSERT OR REPLACE INTO \'''' + dictname + '''' ('Word', 'Definition') VALUES''' + '''
+                    ('{}', '{}')'''.format(word, dictionary[word]))
+        self.close_database()
+
+
     def getDict(self, name):
         self.connect_database()
         self.cur.execute("SELECT * FROM \'{}\'".format(name))
