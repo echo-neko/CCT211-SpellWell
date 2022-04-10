@@ -11,11 +11,11 @@ class Game(Frame):
         self.controller = controller
         self.timer = Timer(self, controller)
         
-        self.definition = Label(self, text="", bg='pink')
-        self.definition.pack()
+        self.definition = Label(self, text="", bg='pink', font=("Garamond", 18))
+        self.definition.pack(pady=18)
 
-        self.underscores = Label(self, text="", bg='pink')
-        self.underscores.pack()
+        self.underscores = Label(self, text="", bg='pink', font=("Garamond", 18))
+        self.underscores.pack(pady=2)
 
         self.wordValue = StringVar()
         self.wordValue.trace('w', self.limitInputLength)
@@ -23,13 +23,14 @@ class Game(Frame):
         self.entry = Entry(self, validate="all", validatecommand=valCommand, textvariable=self.wordValue, justify='center')
         self.entry.pack()
         
-        self.button = Button(self, text="Check", bg='pink' ,width=10, command=self.checkEntry)
-        self.button.pack()
+        self.button = Button(self, text="Check", width=10, command=self.checkEntry,highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 16))
 
-        self.statusLabel = Label(self, text="",bg='pink', width=20)
+        self.button.pack(pady=10)
+
+        self.statusLabel = Label(self, text="",width=20, bg='pink', font=("Garamond", 18))
         self.statusLabel.pack()
 
-        self.scoreLabel = Label(self, text="",bg='pink', width=20)
+        self.scoreLabel = Label(self, text="", width=20, bg='pink', font=("Garamond", 18))
         self.scoreLabel.pack()
 
         self.newGame()
@@ -77,7 +78,7 @@ class Game(Frame):
     def updateScore(self):
         secsUsed = (self.startMin*60 + self.startSec) - (int(self.timer.minute.get())*60 + int(self.timer.second.get())) 
         self.score +=  round((const.SECS_PER_WORD / secsUsed) * 10)
-        self.scoreLabel.configure(text="Score: " + str(self.score),bg='pink')
+        self.scoreLabel.configure(text="Score: " + str(self.score),bg='pink', font=("Garamond", 18))
 
     def newGame(self):
         # call this from other scenes before switching to this scene
@@ -89,17 +90,17 @@ class Game(Frame):
         self.currKey = ""
         self.score = 0
         self.button["state"] = "normal"
-        self.statusLabel.configure(text="",bg='pink')
-        self.scoreLabel.configure(text="Score: " + str(self.score))
+        self.statusLabel.configure(text="",bg='pink', font=("Garamond", 18))
+        self.scoreLabel.configure(text="Score: " + str(self.score), font=("Garamond", 18))
         self.randomKey()
 
     def gameEnd(self, won):
-        self.definition.configure(text="")
-        self.underscores.configure(text="")
+        self.definition.configure(text="", bg='pink', font=("Garamond", 18))
+        self.underscores.configure(text="", bg='pink', font=("Garamond", 18))
         self.timer.stopTimer()
         if won:
-            self.statusLabel.configure(text="you win!",bg='pink')
+            self.statusLabel.configure(text="you win!",bg='pink', font=("Garamond", 18))
         else:
-            self.statusLabel.configure(text="game over...",bg='pink')
+            self.statusLabel.configure(text="game over...",bg='pink', font=("Garamond", 18))
         self.button["state"] = "disabled"
         # TODO save score 
