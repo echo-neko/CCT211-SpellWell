@@ -32,7 +32,7 @@ class DB():
 
     def connect_database(self):
         # connection
-        self.conn = sqlite3.connect(os.path.abspath('./CCT211-SpellWell/db/spellwell_db'))
+        self.conn = sqlite3.connect(os.path.abspath('./db/spellwell_db'))
         # cursor
         self.cur = self.conn.cursor()
 
