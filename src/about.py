@@ -3,11 +3,14 @@ from tkinter.font import Font
 from tkinter import *
 
 class About(Frame):
+    '''
+    This class is for the about page, the about page entails the decription about the game and how to play it
+    '''
 
     def __init__(self, parent, controller, width, height):
         Frame.__init__(self, parent, width=width, height=height)
         self.parent = parent
-
+       
 
         # Define Fonts
         textFont = Font(
