@@ -51,17 +51,17 @@ class MainMenu(Frame):
         self.img = ImageTk.PhotoImage(Image.open("images/spellwell.png"))
 
         # Create a Label Widget to display the Image
-        self.imglabel = Label(self, image = self.img, bg='pink', width=330 , height=310)
+        self.imglabel = Label(self, image = self.img, bg='pink', width=300)
     
         
         
 
  
         #nav links
-        button1= Button(self, text="About", height=2, width=10,  highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showAbout)
+        button1= Button(self, text="About", height=2, width=19,  highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showAbout)
         
 
-        button2= Button(self, text="Play", height=2, width=10,highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showDictList)
+        button2= Button(self, text="Play", height=2, width=19,highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showDictList)
         
 
         button3= Button(self, text="View High Scores", height=2, width=19, highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showScore)
