@@ -11,6 +11,10 @@ class Game(Frame):
         self.controller = controller
         self.timer = Timer(self, controller)
         
+        name = const.CURRDICT 
+        self.label = Label(self, text=name , bg='pink', font=("Garamond", 18))
+        self.label.pack(pady=3)
+        
         self.definition = Label(self, text="", bg='pink', font=("Garamond", 18))
         self.definition.pack(pady=25)
 
