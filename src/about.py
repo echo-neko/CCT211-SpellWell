@@ -12,7 +12,7 @@ class About(Frame):
         # Define Fonts
         textFont = Font(
 	family="Georgia",
-	size=18,
+	size=16,
         slant="roman",
 	underline=0,
 	overstrike=0)
