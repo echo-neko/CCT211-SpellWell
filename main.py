@@ -1,3 +1,13 @@
+##############################################
+# Authors: Hana Dowe, Jasmine Bittu, & Savannah Simmonds
+# Professor Micheal Nixon
+# Class: CCT 211, Winter 2022
+# Programming Assignment #3
+# 4/11/2022
+##############################################
+
+
+
 from tkinter import *
 from src.game import Game
 from src.editdict import EditDict
@@ -29,7 +39,7 @@ class SpellWellApp(Tk):
         self.frames = {}
         for F in (MainMenu, Game, EditDict, DictList, About):
             page_name = F.__name__
-            frame = F(parent=parent, controller=self, width=460, height=750)
+            frame = F(parent=parent, controller=self, width=490, height=630)
             
             self.frames[page_name] = frame
 
@@ -42,7 +52,7 @@ class SpellWellApp(Tk):
 
         self.show_frame("MainMenu")
 
-
+        #links for each menu item
         menubar = Menu(self)
         actionsMenu = Menu(menubar, tearoff=0)
         actionsMenu.add_command(label="MainMenu", command=self.showMainMenu)

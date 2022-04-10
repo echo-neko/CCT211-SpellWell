@@ -15,9 +15,7 @@ class MainMenu(Frame):
         self.parent = parent
 
         
-
-
-        # Define Font
+        # Define Fonts
 
         mainFont_i = Font(
 	family="Georgia",
@@ -52,29 +50,34 @@ class MainMenu(Frame):
         # Create an object of tkinter ImageTk
         self.img = ImageTk.PhotoImage(Image.open("images/spellwell.png"))
 
-        # Create a Label Widget to display the text or Image
-        self.imglabel = Label(self, image = self.img, bg='pink', width=500 , height=480)
+        # Create a Label Widget to display the Image
+        self.imglabel = Label(self, image = self.img, bg='pink', width=380 , height=360)
+    
         
-
-        #adds padding
-        
-        self.title.pack(pady=6)
-        self.title2.pack(pady=6)
-        self.imglabel.pack(pady=0)
         
 
  
-        #links
-        #command=self.parent.master.showAbout()
-        button1= Button(self, text="About", width=8, bg="pink",font= buttonFont)
-        button1.pack(pady=3)
-
-        button2= Button(self, text="Play", width=8, bg="pink",font= buttonFont)
-        button2.pack(pady=3)
-
-        button2= Button(self, text="View High Scores", width=15, bg="pink",font= buttonFont)
-        button2.pack(pady=3)
+        #nav links
+        button1= Button(self, text="About", height=2, width=8,  highlightbackground='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showAbout)
         
+
+        button2= Button(self, text="Play", height=2, width=8,highlightbackground='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showDictList)
+        
+
+        button3= Button(self, text="View High Scores", height=2, width=16, highlightbackground='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showScore)
+        
+        
+        self.title.pack(padx=6) #adds padding
+        self.title2.pack(padx=6)
+        self.imglabel.pack(padx=0)
+
+        #pack buttons
+        button1.pack(padx=20, side=LEFT)
+        
+        button2.pack(padx=10 , side=LEFT)
+        
+        button3.pack(padx=20, side=LEFT)
+
         
         self.controller = controller
         

@@ -34,9 +34,15 @@ class DictList(Frame):
             self.listADict(name)
 
     def playDict(self, name):
+        '''
+        Alows player to play with the dictionary 
+        '''
         const.CURRDICT = name
         self.master.master.showGame()
 
     def editDict(self, name):
+        '''
+        Alows player to edit the dictionary  
+        '''
         const.CURRDICT = name
         self.master.master.showEditDict()
