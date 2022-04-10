@@ -1,5 +1,6 @@
 from tkinter import *
 from src.game import Game
+from src.editdict import EditDict
 from src.mainmenu import MainMenu
 from src.dictlist import DictList
 from src.about import About
@@ -25,7 +26,7 @@ class SpellWellApp(Tk):
         parent.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (MainMenu, Game, DictList, About):
+        for F in (MainMenu, Game, EditDict, DictList, About):
             page_name = F.__name__
             frame = F(parent=parent, controller=self, width=460, height=480)
             
@@ -64,6 +65,10 @@ class SpellWellApp(Tk):
         #shows the game frame/window
         self.show_frame("Game")
         self.frames["Game"].newGame()
+
+    def showEditDict(self):
+        #shows the dictionary edit frame/window
+        self.show_frame("EditDict")
     
     def showDictList(self):
         # shows the list of games 

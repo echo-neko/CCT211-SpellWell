@@ -8,7 +8,6 @@ class DictList(Frame):
     def __init__(self, parent, controller, width, height):
         Frame.__init__(self, parent, width=width, height=height)
         self.controller = controller
-        self.parent = parent
 
         self.presetButton = Button(self, text="Preset", width=10, command=lambda: self.showDicts(True))
         self.presetButton.pack()
@@ -23,7 +22,7 @@ class DictList(Frame):
         playButton = Button(self, text="Play", width=10, command= lambda: self.playDict(name))
         playButton.pack()
         self.currList.append(playButton)
-        editButton = Button(self, text="Edit", width=10)
+        editButton = Button(self, text="Edit", width=10, command= lambda: self.editDict(name))
         editButton.pack()
         self.currList.append(editButton)
 
@@ -36,4 +35,8 @@ class DictList(Frame):
 
     def playDict(self, name):
         const.CURRDICT = name
-        self.parent.master.showGame()
+        self.master.master.showGame()
+
+    def editDict(self, name):
+        const.CURRDICT = name
+        self.master.master.showEditDict()
