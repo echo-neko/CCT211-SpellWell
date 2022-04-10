@@ -63,9 +63,7 @@ class MainMenu(Frame):
 
         button2= Button(self, text="Play", height=2, width=19,highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showDictList)
         
-
-        button3= Button(self, text="View High Scores", height=2, width=19, highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showScore)
-        
+   
         
         self.title.pack(padx=6) #adds padding
         self.title2.pack(padx=6)
@@ -76,7 +74,7 @@ class MainMenu(Frame):
         
         button2.pack(pady=3)
         
-        button3.pack(pady=3)
+
 
         
         self.controller = controller
