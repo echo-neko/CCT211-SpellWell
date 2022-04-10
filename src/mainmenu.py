@@ -6,6 +6,9 @@ class MainMenu(Frame):
         Frame.__init__(self, parent, width=width, height=height)
         #self.statusLabel = tkinter.Label(parent, text="", width= 20)
         #self.statusLabel.grid()
-        self.title = Label(self, text="Spell Well", width= 20)
+
+        #displays title of the game
+        self.title = Label(self, text="Spell Well", width= 20,bg="pink")
+        
         self.title.pack()
         self.controller = controller
