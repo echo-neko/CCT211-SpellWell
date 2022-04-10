@@ -11,6 +11,11 @@ class EditDict(Frame):
 
         self.dict = {}
 
+        valCommand = (self.register(self.isText), '%S')
+
+        self.nameEntry = Entry(self, validate="all", validatecommand=valCommand)
+        self.nameEntry.pack()
+
         self.table_frame = Frame(self)
         self.table_frame.pack(side=LEFT)
         
@@ -19,7 +24,6 @@ class EditDict(Frame):
         self.definition = Label(self, text="", bg='pink')
         self.definition.pack()
 
-        valCommand = (self.register(self.isText), '%S')
         self.wordEntry = Entry(self, validate="all", validatecommand=valCommand)
         self.wordEntry.pack()
 
@@ -40,15 +44,24 @@ class EditDict(Frame):
 
 
     def addEntry(self):
+        if self.wordEntry.get() == "":
+            self.statusLabel.configure(text="Word cannot be empty")
+            return
+
+        if self.defEntry.get("1.0",'end-1c') == "":
+            self.statusLabel.configure(text="Definition cannot be empty")
+            return
+
         if self.isText(self.wordEntry.get()):
-            if self.wordEntry.get() not in list(map(lambda x: x.lower(), list(self.dict))):
+            if self.wordEntry.get() in list(map(lambda x: x.lower(), list(self.dict))):
+                self.a = 0
+            else:
                 self.dict[self.wordEntry.get()] = self.defEntry.get("1.0",'end-1c')
                 self.addRow(self.wordEntry.get(), self.defEntry.get("1.0",'end-1c'))
                 self.setText("", "")
-            else:
-                self.statusLabel.configure(text="word is already in dictionary")
+                self.statusLabel.configure(text="")
         else:
-            self.statusLabel.configure(text="invalid characters in word")
+            self.statusLabel.configure(text="Invalid characters in word")
 
 
     def isText(self, text):
@@ -90,13 +103,39 @@ class EditDict(Frame):
 
         self.currIID = 0
 
+        self.nameEntry.delete(0, END)
+        self.setText("", "")
+
         if (const.CURRDICT != ""):
+            # editing existing 
             self.dict = const.Db.getDict(const.CURRDICT)
-        for key in list(self.dict):
-            self.addRow(key, self.dict[key])
+            for key in list(self.dict):
+                self.addRow(key, self.dict[key])
+            self.nameEntry.insert(0, const.CURRDICT)
+            self.nameEntry['state'] = 'disabled'
+        else:
+            # creating new
+            self.nameEntry.insert(0, "")
 
 
     def saveReturn(self):
+        if self.nameEntry.get() == "":
+            self.statusLabel.configure(text="Dictionary name cannot be empty")
+            return
+
+        if not self.isText(self.nameEntry.get()):
+            self.statusLabel.configure(text="Invalid characters in dictionary name")
+            return
+
+        if const.CURRDICT != self.nameEntry.get():
+            # if new name
+            # check name does not exist already in user created dicts
+            if self.nameEntry.get() not in const.Db.getDictNames(preset=False):
+                # delete old dict 
+                const.Db.deleteDict(const.CURRDICT)
+                const.CURRDICT = self.nameEntry.get()
+            else: 
+                self.statusLabel.configure(text="Dictionary name already exists")
         const.Db.saveDict(const.CURRDICT, self.dict)
         self.noSaveReturn()
 

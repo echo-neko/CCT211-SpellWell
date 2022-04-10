@@ -46,7 +46,7 @@ class Game(Frame):
                 self.randomKey()
         else:
             # wrong answer
-            if (len(self.remainingKeys) != 0) :            
+            if (self.currKey != "") :            
                 self.statusLabel.configure(text="try again",bg='pink')
         
 
@@ -96,6 +96,7 @@ class Game(Frame):
     def gameEnd(self, won):
         self.definition.configure(text="")
         self.underscores.configure(text="")
+        self.currKey = ""
         self.timer.stopTimer()
         if won:
             self.statusLabel.configure(text="you win!",bg='pink')
