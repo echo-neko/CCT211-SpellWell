@@ -19,7 +19,7 @@ class About(Frame):
 
         titleFont = Font(
 	family="Georgia",
-	size=40,
+	size=37,
         slant="roman",
 	underline=0,
 	overstrike=0)
@@ -32,7 +32,7 @@ class About(Frame):
 	overstrike=0)
         
         self.about_title = Label(self,text="About", bg="pink", font=titleFont)
-        self.about_title.pack(pady=10)
+        self.about_title.pack(pady=8)
 
         self.about_desc = Label(self, text="Spell Well is a game for learning new words along with their definitions. We want to help out all kinds of people learning new words or even students who need to memorize complicated vocabulary for their courses by providing them with a fun way of practicing their spelling", wraplength=450, bg="pink", font=textFont)
         self.about_desc.pack()
