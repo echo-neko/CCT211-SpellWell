@@ -35,7 +35,7 @@ class MainMenu(Frame):
 
         buttonFont = Font(
 	family="Georgia",
-	size=40,
+	size=20,
         slant="roman",
 	underline=0,
 	overstrike=0)
@@ -58,18 +58,23 @@ class MainMenu(Frame):
 
         #adds padding
         
-        self.title.pack(pady=10)
-        self.title2.pack(pady=10)
-        self.imglabel.pack()
+        self.title.pack(pady=6)
+        self.title2.pack(pady=6)
+        self.imglabel.pack(pady=0)
+        
 
-
+ 
         #links
-       # button1= Button(self, text="About", width=20, bg="pink",font= buttonFont, command=self.parent.master.showAbout())
-       # button1.pack(pady=10)
+        #command=self.parent.master.showAbout()
+        button1= Button(self, text="About", width=8, bg="pink",font= buttonFont)
+        button1.pack(pady=3)
 
-        button2= Button(self, text="Play", width=20, bg="pink",font= buttonFont, command=self.parent.master.showGame())
-        button2.pack(pady=10)
+        button2= Button(self, text="Play", width=8, bg="pink",font= buttonFont)
+        button2.pack(pady=3)
 
-        #button2= Button(self, text="View High Scores", width=20, bg="pink",font= buttonFont, command= self.parent.master.showScore())
-       # button2.pack(pady=10)
+        button2= Button(self, text="View High Scores", width=15, bg="pink",font= buttonFont)
+        button2.pack(pady=3)
+        
+        
         self.controller = controller
+        
