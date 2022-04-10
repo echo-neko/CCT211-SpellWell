@@ -5,6 +5,7 @@ from src.mainmenu import MainMenu
 from src.dictlist import DictList
 from src.about import About
 
+
 '''source: https://stackoverflow.com/questions/7546050/switch-between-two-frames-in-tkinter'''
 
 class SpellWellApp(Tk):
