@@ -70,6 +70,7 @@ class SpellWellApp(Tk):
     def showEditDict(self):
         #shows the dictionary edit frame/window
         self.show_frame("EditDict")
+        self.frames["EditDict"].startNew()
     
     def showDictList(self):
         # shows the list of games 
