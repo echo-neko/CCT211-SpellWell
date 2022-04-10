@@ -29,7 +29,7 @@ class SpellWellApp(Tk):
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
         # will be raised above the others
-        parent = Frame(self, width=640, height=480)
+        parent = Frame(self, width=640, height=500)
 
         
         parent.pack(side="top", fill="both", expand=True)
