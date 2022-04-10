@@ -70,9 +70,12 @@ class MainMenu(Frame):
         self.imglabel.pack(padx=0)
 
         #pack buttons
-        button1.pack(pady=3)
         
-        button2.pack(pady=3)
+        
+        button2.pack(pady=3)#play button
+
+        button1.pack(pady=3)#about button
+        
         
 
 
