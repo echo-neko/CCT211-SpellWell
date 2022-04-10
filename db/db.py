@@ -91,6 +91,9 @@ class DB():
         self.close_database()
         return names 
 
+    def checkIsPreset(self, dictname):
+        return dictname in list(PRESETDICTS)
+
 PRESETDICTS = {"animals":{"cat": "best animal that meows", 
                     "dog": "best animal that barks",
                     "giraffe": "very tall animal", 

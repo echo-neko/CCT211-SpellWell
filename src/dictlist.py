@@ -22,9 +22,13 @@ class DictList(Frame):
         playButton = Button(self, text="Play", width=10, command= lambda: self.playDict(name))
         playButton.pack()
         self.currList.append(playButton)
-        editButton = Button(self, text="Edit", width=10, command= lambda: self.editDict(name))
-        editButton.pack()
-        self.currList.append(editButton)
+        if not const.Db.checkIsPreset(name):
+            editButton = Button(self, text="Edit", width=10, command= lambda: self.editDict(name))
+            editButton.pack()
+            self.currList.append(editButton)
+        pastScoresButton = Button(self, text="Past Scores", width=10) # TODO command
+        pastScoresButton.pack()
+        self.currList.append(pastScoresButton)
 
     def showDicts(self, preset):
         for widget in self.currList:
