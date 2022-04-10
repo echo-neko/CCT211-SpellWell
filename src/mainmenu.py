@@ -58,10 +58,10 @@ class MainMenu(Frame):
 
  
         #nav links
-        button1= Button(self, text="About", height=2, width=8,  highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showAbout)
+        button1= Button(self, text="About", height=2, width=5,  highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showAbout)
         
 
-        button2= Button(self, text="Play", height=2, width=8,highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showDictList)
+        button2= Button(self, text="Play", height=2, width=5,highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showDictList)
         
 
         button3= Button(self, text="View High Scores", height=2, width=16, highlightbackground='#2f073b', bg='#2f073b', fg="white", font= buttonFont, command=self.parent.master.showScore)
