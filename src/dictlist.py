@@ -62,7 +62,7 @@ class DictList(Frame):
         for name in dictNames:
             self.listADict(name)
         if not preset:
-            createDictButton = Button(self.scroll_frame, text="Make New", width=10, command= lambda: self.editDict(""))
+            createDictButton = Button(self.scroll_frame, text="Make New", command= lambda: self.editDict(""),width=10, highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia", 16))
             createDictButton.pack()
 
     def playDict(self, name):
