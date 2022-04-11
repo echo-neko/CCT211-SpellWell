@@ -1,4 +1,6 @@
 from tkinter import *
+from customTk.MyLabel import MyLabel
+from tkinter.font import Font
 
 # source: https://www.geeksforgeeks.org/create-countdown-timer-using-python-tkinter/
 
@@ -18,12 +20,14 @@ class Timer(Frame):
         # setting the default value as 0
         self.minute.set("00")
         self.second.set("00")
+
+        textFont = Font(family="Georgia",size=15, slant="roman")
         
         # Use of Entry class to take input from the user
-        minuteLabel= Label(self, width=3, textvariable=self.minute, bg='pink', font=("Garamond", 18))
+        minuteLabel= Label(self, width=10, textvariable=self.minute, font=textFont, bg='pink')
         minuteLabel.pack()
         
-        secondLabel= Label(self, width=3, textvariable=self.second, bg='pink', font=("Garamond", 18))
+        secondLabel= Label(self, width=10, textvariable=self.second, font=textFont, bg='pink')
         secondLabel.pack()
 
         self.pack()
