@@ -20,10 +20,10 @@ class Timer(Frame):
         self.second.set("00")
         
         # Use of Entry class to take input from the user
-        minuteLabel= Label(self, width=3, textvariable=self.minute)
+        minuteLabel= Label(self, width=3, textvariable=self.minute, bg='pink', font=("Garamond", 18))
         minuteLabel.pack()
         
-        secondLabel= Label(self, width=3, textvariable=self.second)
+        secondLabel= Label(self, width=3, textvariable=self.second, bg='pink', font=("Garamond", 18))
         secondLabel.pack()
 
         self.pack()
