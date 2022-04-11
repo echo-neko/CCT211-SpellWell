@@ -12,8 +12,8 @@ class MainMenu(Frame):
         
         
         #displays title of the game
-        self.title = MyLabel(self, text="Welcome To", width=20, fontSize=1)
-        self.title2 = MyLabel(self, text="*･｡*☆Spell Well!☆*･｡*･", width=20, fontSize=2)
+        self.title = MyLabel(self, text="Welcome To", width=20, fontType=1)
+        self.title2 = MyLabel(self, text="*･｡*☆Spell Well!☆*･｡*･", width=20, fontType=0)
 
         '''
         src: https://www.tutorialspoint.com/how-to-place-an-image-into-a-frame-in-tkinter

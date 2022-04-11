@@ -39,7 +39,7 @@ class DictList(Frame):
         frame = Frame(self.scroll_frame, pady=5, bg='pink')
         frame.pack(fill=X, expand=1)
 
-        label = MyLabel(frame, width=14, text=name, fontSize=0)
+        label = MyLabel(frame, width=14, text=name)
         label.pack(side=LEFT, expand=1, fill=X)
 
         playButton = MyButton(frame, text="Play", width=7, colorLevel=1, command= lambda: self.playDict(name))

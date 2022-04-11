@@ -14,13 +14,13 @@ class Game(Frame):
         self.timer = Timer(self, controller)
         
         name = const.CURRDICT 
-        self.dictNameLabel = MyLabel(self, text=name ,  width=100, fontSize=0)
-        self.dictNameLabel.pack(pady=3)
+        self.dictNameLabel = MyLabel(self, text=name, width=100,fontType=1, fg='#c17b9f')
+        self.dictNameLabel.pack()
         
-        self.definition = MyLabel(self, text="", width=200, fontSize=0)
+        self.definition = MyLabel(self, text="", width=200)
         self.definition.pack(pady=25)
 
-        self.underscores = MyLabel(self, text="",width=200, fontSize=0)
+        self.underscores = MyLabel(self, text="",width=200)
         self.underscores.pack(pady=2)
 
         self.wordValue = StringVar()
@@ -30,13 +30,13 @@ class Game(Frame):
         self.entry.bind("<Return>", self.checkEntry)
         self.entry.pack()
         
-        self.statusLabel = Label(self, text="", width=90, fg='red', bg='pink', font=("Georgia",13))
+        self.statusLabel = MyLabel(self, text="", width=90, fg='red')
         self.statusLabel.pack()
 
         self.checkButton = MyButton(self, text="Check", width=10, command=self.checkEntry, colorLevel=1, fontSize=16)
         self.checkButton.pack(pady=10)
 
-        self.scoreLabel = MyLabel(self, text="", width=90, fontSize=0)
+        self.scoreLabel = MyLabel(self, text="", width=90)
         self.scoreLabel.pack()
 
         self.playAgainButton = MyButton(self, width=20, text="Play Again", command=self.newGame, colorLevel=0)
@@ -68,7 +68,13 @@ class Game(Frame):
         self.currKey = random.choice(self.remainingKeys)
         self.remainingKeys.remove(self.currKey)
         self.definition.configure(text=self.dictionary[self.currKey])
-        self.underscores.configure(text="_ "*len(self.currKey))
+        underscores = ""
+        for char in self.currKey:
+            if char in  " -'.":
+                underscores += char + " "
+            else:
+                underscores += "_ "
+        self.underscores.configure(text=underscores)
         self.limitInputLength()
         self.startMin = int(self.timer.minute.get())
         self.startSec = int(self.timer.second.get())
@@ -121,8 +127,6 @@ class Game(Frame):
 
 
     def gameEnd(self, won):
-        self.definition.configure(text="")
-        self.underscores.configure(text="")
         self.definition.configure(text="")
         self.underscores.configure(text="")
         self.currKey = ""

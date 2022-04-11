@@ -18,7 +18,7 @@ class EditDict(Frame):
 
         nameEntryFrame = Frame(self, bg='pink')
         nameEntryFrame.pack()
-        nameEntryLabel = Label(nameEntryFrame, text="Dictionary Name: ",bg='pink', font=("Georgia",15))
+        nameEntryLabel = MyLabel(nameEntryFrame, text="Dictionary Name: ")
         nameEntryLabel.pack(side=LEFT)
         self.nameEntry = Entry(nameEntryFrame, width=24, validate="all", validatecommand=valCommand, font=("Georgia",15))
         self.nameEntry.pack(side=LEFT)
@@ -32,16 +32,16 @@ class EditDict(Frame):
 
         wordEntryFrame = Frame(self, bg='pink')
         wordEntryFrame.pack()
-        wordEntryLabel = Label(wordEntryFrame, text="Word: ", width=8, anchor=E, bg='pink', font=("Georgia",15))
+        wordEntryLabel = MyLabel(wordEntryFrame, text="Word: ", width=9, anchor=E)
         wordEntryLabel.pack(side=LEFT)
-        self.wordEntry = Entry(wordEntryFrame, width=30, validate="all", validatecommand=valCommand, font=("Georgia"))
+        self.wordEntry = Entry(wordEntryFrame, width=28, validate="all", validatecommand=valCommand, font=("Georgia"))
         self.wordEntry.pack(side=LEFT, pady=2)
 
         defEntryFrame = Frame(self, bg='pink')
         defEntryFrame.pack()
-        defEntryLabel = Label(defEntryFrame, text="Definition: \n\n\n", width=8, anchor=E, bg='pink', font=("Georgia",15))
+        defEntryLabel = MyLabel(defEntryFrame, text="Definition: \n\n\n", width=9, anchor=E)
         defEntryLabel.pack(side=LEFT)
-        self.defEntry = Text(defEntryFrame, width = 30, height= 5, font=("Georgia"))
+        self.defEntry = Text(defEntryFrame, width = 28, height= 5, font=("Georgia"))
         self.defEntry.pack(side=LEFT, pady=4)
         
         addDelWordFrame = Frame(self, bg='pink')
@@ -51,7 +51,7 @@ class EditDict(Frame):
         self.addWordButton = MyButton(addDelWordFrame, text="Add" ,width=10, command=self.addEntry, colorLevel=1)
         self.addWordButton.pack(side=RIGHT, pady=5, padx=2)
 
-        self.statusLabel = Label(self, text="", highlightbackground='pink', bg='pink', fg="red", font=("Georgia"))
+        self.statusLabel = MyLabel(self, text="", fg="red")
         self.statusLabel.pack()
 
         self.saveButton = MyButton(self, text="Save and Return to List", command=self.saveReturn, width=25, colorLevel=0)
@@ -121,6 +121,7 @@ class EditDict(Frame):
             row = self.dictTable.item(self.selected_i)['values']
             self.setText(row[0], row[1])
         self.delWordButton.pack(side=LEFT, pady=5, padx=2)
+        self.statusLabel.configure(text="")
 
 
     def setText(self, word, definition):
