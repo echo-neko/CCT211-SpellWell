@@ -25,6 +25,7 @@ class SpellWellApp(Tk):
 
         self.title("Spell Well")
         
+        self.resizable(False, False)
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
@@ -40,7 +41,6 @@ class SpellWellApp(Tk):
         for F in (MainMenu, Game, EditDict, DictList, About):
             page_name = F.__name__
             frame = F(parent=parent, controller=self, width=490, height=630)
-            #frame.resizable(False, False)
             
             self.frames[page_name] = frame
 
