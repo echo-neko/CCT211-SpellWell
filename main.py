@@ -6,7 +6,15 @@
 # 4/11/2022
 ##############################################
 
+'''
+There are some issues where some features of tkinter do not work
+on mac as they do on windows.
 
+This link refers to the problems mac users are having with tkinter
+Therefore it is best to experience this on a windows desktop
+Link :https://www.reddit.com/r/Python/comments/q2rpmp/tkinter_for_python_310_broken_on_macos/
+
+'''
 
 from tkinter import *
 from src.game import Game
@@ -25,7 +33,6 @@ class SpellWellApp(Tk):
 
         self.title("Spell Well")
         
-        self.resizable(False, False)
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
@@ -41,6 +48,7 @@ class SpellWellApp(Tk):
         for F in (MainMenu, Game, EditDict, DictList, About):
             page_name = F.__name__
             frame = F(parent=parent, controller=self, width=490, height=630)
+            #frame.resizable(False, False)
             
             self.frames[page_name] = frame
 
