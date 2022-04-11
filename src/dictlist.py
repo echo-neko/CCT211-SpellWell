@@ -14,11 +14,14 @@ class DictList(Frame):
     
         self.controller = controller
 
-        self.presetButton = MyButton(self, text="Preset", command=lambda: self.showDicts(True), width=10, colorLevel=0)
-        self.presetButton.pack(pady=3)
+        topButtons = Frame(self, bg='pink')
+        topButtons.pack()
 
-        self.originalButton = MyButton(self, text="Original", width=10, command=lambda: self.showDicts(False), colorLevel=0)
-        self.originalButton.pack(pady=5)
+        self.presetButton = MyButton(topButtons, text="Preset", command=lambda: self.showDicts(True), width=10, colorLevel=0)
+        self.presetButton.pack(side=LEFT, pady=10)
+
+        self.originalButton = MyButton(topButtons, text="Original", width=10, command=lambda: self.showDicts(False), colorLevel=0)
+        self.originalButton.pack(side=LEFT, pady=10)
 
         canvas = Canvas(self, bg='pink')
         scrollbar = Scrollbar(self, orient="vertical", command=canvas.yview)
@@ -79,6 +82,12 @@ class DictList(Frame):
                 label.pack(side=LEFT, expand=1, fill=X)
             createDictButton = MyButton(self.scroll_frame, text="Make New", width=10, colorLevel=1, command= lambda: self.editDict(""))
             createDictButton.pack(pady=5)
+            
+            self.presetButton["state"] = "normal"
+            self.originalButton["state"] = "disabled"
+        else:
+            self.presetButton["state"] = "disabled"
+            self.originalButton["state"] = "normal"
 
     def on_vertical(self, event, numDict=0):
         if numDict > 9:
