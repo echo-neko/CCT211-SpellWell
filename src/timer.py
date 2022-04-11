@@ -1,3 +1,4 @@
+from cgitb import text
 from tkinter import *
 from customTk.MyLabel import MyLabel
 from tkinter.font import Font
@@ -10,7 +11,6 @@ class Timer(Frame):
 
     def __init__(self, parent, controller):
         Frame.__init__(self, parent, width=100, height=50)
-        self.parent = parent
         self.controller = controller
         
         # Declaration of variables
@@ -22,13 +22,16 @@ class Timer(Frame):
         self.second.set("00")
         
         # Use of Entry class to take input from the user
-        minuteLabel= MyLabel(self, width=10, textvariable=self.minute)
-        minuteLabel.pack()
+        minuteLabel = MyLabel(self.master, textvariable=self.minute)
+        minuteLabel.grid(row=0, column=2, padx=5)
         
-        secondLabel= MyLabel(self, width=10, textvariable=self.second)
-        secondLabel.pack()
+        textLabel = MyLabel(self.master, text=":")
+        textLabel.grid(row=0, column=3)
 
-        self.pack()
+        secondLabel = MyLabel(self.master, textvariable=self.second)
+        secondLabel.grid(row=0, column=4, padx=5)
+
+        self.labels = [minuteLabel, textLabel, secondLabel]
 
 
     def setTimer(self):
@@ -41,7 +44,6 @@ class Timer(Frame):
             # two decimal places
             self.minute.set("{0:2d}".format(mins))
             self.second.set("{0:2d}".format(secs))
-    
             # updating the GUI window 
             self.update()
 
@@ -50,7 +52,8 @@ class Timer(Frame):
             if not self.stop:
                 self.after(1000, self.setTimer)
         elif (not self.stop):
-            self.parent.gameEnd(False)
+            self.master.master.gameEnd(False)
+
 
     def startTimer(self, minute, second):
         self.stop = False
@@ -60,3 +63,6 @@ class Timer(Frame):
     def stopTimer(self):
         self.stop = True
         
+    def configFG(self, color):
+        for label in self.labels:
+            label.configure(fg=color)

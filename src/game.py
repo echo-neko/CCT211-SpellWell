@@ -11,12 +11,16 @@ class Game(Frame):
     def __init__(self, parent, controller, width, height):
         Frame.__init__(self, parent, width=width, height=height)
         self.controller = controller
-        self.timer = Timer(self, controller)
         
-        name = const.CURRDICT 
-        self.dictNameLabel = MyLabel(self, text=name, width=100,fontType=1, fg='#c17b9f')
+        self.dictNameLabel = MyLabel(self, text=const.CURRDICT, fontType=1, fg='#c17b9f')
         self.dictNameLabel.pack()
         
+        self.infoFrame = Frame(self, bg='pink')
+        self.infoFrame.pack(side=TOP, fill=X, padx=90, pady=10)
+        self.infoFrame.grid_columnconfigure(1, weight=1)
+
+        self.timer = Timer(self.infoFrame, controller)
+
         self.definition = MyLabel(self, text="", width=200)
         self.definition.pack(pady=25)
 
@@ -36,8 +40,8 @@ class Game(Frame):
         self.checkButton = MyButton(self, text="Check", width=10, command=self.checkEntry, colorLevel=1, fontSize=16)
         self.checkButton.pack(pady=10)
 
-        self.scoreLabel = MyLabel(self, text="", width=90)
-        self.scoreLabel.pack()
+        self.scoreLabel = MyLabel(self.infoFrame, text="")
+        self.scoreLabel.grid(row=0, column=0, pady=10)
 
         self.playAgainButton = MyButton(self, width=20, text="Play Again", command=self.newGame, colorLevel=0)
         self.playAgainButton.pack(pady=10)
@@ -111,7 +115,7 @@ class Game(Frame):
         self.score = 0
 
         self.timer.destroy()
-        self.timer = Timer(self, self.controller)
+        self.timer = Timer(self.infoFrame, self.controller)
         self.timer.startTimer(0, len(self.remainingKeys)*const.SECS_PER_WORD)
         
         self.checkButton["state"] = "normal"
@@ -119,6 +123,8 @@ class Game(Frame):
         self.statusLabel.configure(fg='red')
         self.statusLabel.configure(text="")
         self.scoreLabel.configure(text="Score: " + str(self.score))
+        self.scoreLabel.configure(fg='grey')
+        self.timer.configFG('grey')
         
         self.playAgainButton.pack_forget()
         self.dictListButton.pack_forget()
@@ -132,6 +138,8 @@ class Game(Frame):
         self.currKey = ""
 
         self.timer.stopTimer()
+        self.scoreLabel.configure(fg='black')
+        self.timer.configFG('black')
 
         if won:
             self.statusLabel.configure(fg='green')
