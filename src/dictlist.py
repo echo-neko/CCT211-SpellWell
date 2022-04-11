@@ -23,6 +23,7 @@ class DictList(Frame):
         canvas = Canvas(self, bg='pink')
         scrollbar = Scrollbar(self, orient="vertical", command=canvas.yview)
         self.scroll_frame = Frame(canvas, bg='pink')
+        scrollbar.pack(side="right", fill="y")
         self.scroll_frame.bind(
             "<Configure>",
             lambda e: canvas.configure(
@@ -32,19 +33,27 @@ class DictList(Frame):
         canvas.create_window((0, 0), window=self.scroll_frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.pack(side="left", fill="both", expand=True)
-        scrollbar.pack(side="right", fill="y")
 
 
     def listADict(self, name):
-        label = Label(self.scroll_frame, text=name, bg='pink', font=("Garamond", 18))
-        label.pack(pady=3)
-        playButton = Button(self.scroll_frame, text="Play", width=10, command= lambda: self.playDict(name), highlightbackground='pink', bg='pink', fg="black", font=("Georgia", 16))
-        playButton.pack()
+        frame = Frame(self.scroll_frame, pady=5, bg='pink')
+        frame.pack(fill=X, expand=1)
+
+        label = Label(frame, width=14, text=name, bg='pink', font=("Garamond", 16))
+        label.pack(side=LEFT, expand=1, fill=X)
+
+        playButton = Button(frame, text="Play", width=7, command= lambda: self.playDict(name), highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia"))
+        playButton.pack(side=RIGHT)
+
         if not const.Db.checkIsPreset(name):
-            editButton = Button(self.scroll_frame, text="Edit", width=10, command= lambda: self.editDict(name), highlightbackground='pink', bg='pink', fg="black", font=("Georgia", 16))
-            editButton.pack()
-        pastScoresButton = Button(self.scroll_frame, text="Past Scores", width=10, highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia", 16))# TODO command
-        pastScoresButton.pack()
+            editButton = Button(frame, text="Edit", width=7, command= lambda: self.editDict(name), highlightbackground='pink', bg='pink', fg="black", font=("Georgia"))
+            editButton.pack(side=RIGHT)
+        else:
+            label.configure(width=14+7)
+
+        pastScoresButton = Button(frame, text="Scores", width=7, highlightbackground='pink', bg='pink', fg="black", font=("Georgia"))# TODO command
+        pastScoresButton.pack(side=RIGHT)
+        
 
 
     def showDicts(self, preset):
@@ -61,9 +70,16 @@ class DictList(Frame):
         dictNames = const.Db.getDictNames(preset)
         for name in dictNames:
             self.listADict(name)
+
+        self.scroll_frame.master.bind_all('<MouseWheel>', lambda event: self.on_vertical(event, numDict=len(dictNames)))
+
         if not preset:
             createDictButton = Button(self.scroll_frame, text="Make New", width=10, command= lambda: self.editDict(""))
             createDictButton.pack()
+
+    def on_vertical(self, event, numDict=0):
+        if numDict > 9:
+            self.scroll_frame.master.yview_scroll(-1 * event.delta, 'units')
 
     def playDict(self, name):
         '''

@@ -5,7 +5,6 @@ class DB():
 
     def __init__(self):
         self.connect_database()
-        self.cur.execute('''DROP TABLE IF EXISTS DICTS;''')
         self.cur.execute('''CREATE TABLE IF NOT EXISTS "DICTS" (
                 "Name"	TEXT NOT NULL,
                 "Is_Preset"	BOOLEAN NOT NULL,
@@ -13,11 +12,9 @@ class DB():
                 );''')
         
         for dictname in list(PRESETDICTS):
-            self.cur.execute("INSERT INTO DICTS ('Name', 'Is_Preset') VALUES\n('{}', 'TRUE')".format(dictname))
+            self.cur.execute("INSERT OR IGNORE INTO DICTS ('Name', 'Is_Preset') VALUES\n('{}', 'TRUE')".format(dictname))
         
-            self.cur.execute('DROP TABLE IF EXISTS "{}";'.format(dictname))
-        
-            command = '''CREATE TABLE "{}" (
+            command = '''CREATE TABLE IF NOT EXISTS"{}" (
                     "Word"	TEXT NOT NULL,
                     "Definition"	TEXT NOT NULL,
                     PRIMARY KEY("Word")
@@ -25,7 +22,7 @@ class DB():
             self.cur.execute(command)
 
             for word in list(PRESETDICTS[dictname]):
-                self.cur.execute('''INSERT OR REPLACE INTO \'''' + dictname + '''' ('Word', 'Definition') VALUES''' + '''
+                self.cur.execute('''INSERT OR IGNORE INTO \'''' + dictname + '''' ('Word', 'Definition') VALUES''' + '''
                         ('{}', '{}')'''.format(word, PRESETDICTS[dictname][word]))
 
         self.close_database()
@@ -64,12 +61,13 @@ class DB():
     def deleteDict(self, dictname):
         self.connect_database()
         self.cur.execute('DROP TABLE IF EXISTS "{}";'.format(dictname))
+        self.cur.execute("DELETE FROM 'DICTS' WHERE Name='{}'".format(dictname))
         self.close_database()
 
 
     def getDict(self, name):
         self.connect_database()
-        self.cur.execute("SELECT * FROM \'{}\'".format(name))
+        self.cur.execute("SELECT * FROM '{}'".format(name))
         rows = self.cur.fetchall()
         dictionary = {}
         for row in rows:

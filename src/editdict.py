@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 import re
+from tkinter import font
 import src.constants as const
 
 class EditDict(Frame):
@@ -10,30 +11,43 @@ class EditDict(Frame):
         self.controller = controller
 
         self.dict = {}
+        self.selected_i = -1
 
         valCommand = (self.register(self.isText), '%S')
 
-        self.nameEntry = Entry(self, validate="all", validatecommand=valCommand, font=("Garamond", 16))
-        self.nameEntry.pack()
+        nameEntryFrame = Frame(self, bg='pink')
+        nameEntryFrame.pack()
+        nameEntryLabel = Label(nameEntryFrame, text="Dictionary Name: ", highlightbackground='pink', bg='pink', font=("Georgia"))
+        nameEntryLabel.pack(side=LEFT)
+        self.nameEntry = Entry(nameEntryFrame, width=30, validate="all", validatecommand=valCommand, font=("Garamond"))
+        self.nameEntry.pack(side=LEFT)
 
-        self.table_frame = Frame(self)
-        self.table_frame.pack(side=LEFT)
+        self.table_frame = Frame(self, width=30, bg='pink')
+        self.table_frame.pack()
         self.dictTable = ttk.Treeview(self.table_frame)
         self.dictTable.pack()
         
         self.currIID = 0
-        
-        self.definition = Label(self, text="", bg='pink', font=("Garamond", 16))
-        self.definition.pack(pady=2)
 
-        self.wordEntry = Entry(self, validate="all", validatecommand=valCommand)
-        self.wordEntry.pack(pady=2)
+        wordEntryFrame = Frame(self, bg='pink')
+        wordEntryFrame.pack()
+        wordEntryLabel = Label(wordEntryFrame, text="Word: ", width=8, anchor=E, highlightbackground='pink', bg='pink', font=("Georgia"))
+        wordEntryLabel.pack(side=LEFT)
+        self.wordEntry = Entry(wordEntryFrame, width=30, validate="all", validatecommand=valCommand, font=("Garamond"))
+        self.wordEntry.pack(side=LEFT, pady=2)
 
-        self.defEntry = Text(self, width = 30, height= 15, bg='#cca0bb', font=("Garamond", 16))
-        self.defEntry.pack(padx=4)
+        defEntryFrame = Frame(self, bg='pink')
+        defEntryFrame.pack()
+        defEntryLabel = Label(defEntryFrame, text="Definition: \n\n\n", width=8, anchor=E, highlightbackground='pink', bg='pink', font=("Georgia"))
+        defEntryLabel.pack(side=LEFT)
+        self.defEntry = Text(defEntryFrame, width = 30, height= 5, font=("Garamond"))
+        self.defEntry.pack(side=LEFT, pady=4)
         
-        self.wordButton = Button(self, text="Add" ,width=10, command=self.addEntry,highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia", 15))
-        self.wordButton.pack(pady=5)
+        self.addWordButton = Button(self, text="Add" ,width=10, command=self.addEntry,highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia", 15))
+        self.addWordButton.pack(pady=5)
+
+        self.statusLabel = Label(self, text="", highlightbackground='pink', bg='pink', fg="black", font=("Georgia"))
+        self.statusLabel.pack()
 
         self.saveButton = Button(self, text="Save and Return to List", command=self.saveReturn, width=30,highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 15))
         self.saveButton.pack(pady=5)
@@ -41,29 +55,35 @@ class EditDict(Frame):
         self.noSaveButton = Button(self, text="Return to List without Saving",command=self.noSaveReturn,width=30, highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 15))
         self.noSaveButton.pack(pady=5)
 
-        self.statusLabel = Label(self, text="", width=20, highlightbackground='pink', bg='pink', fg="black", font=("Georgia", 16))
-        self.statusLabel.pack()
 
 
     def addEntry(self):
         if self.wordEntry.get() == "":
-            self.statusLabel.configure(text="Word cannot be empty", bg='pink', font=("Garamond", 18))
+            self.statusLabel.configure(text="Word cannot be empty")
             return
 
         if self.defEntry.get("1.0",'end-1c') == "":
-            self.statusLabel.configure(text="Definition cannot be empty",bg='pink', font=("Garamond", 18))
+            self.statusLabel.configure(text="Definition cannot be empty")
             return
 
         if self.isText(self.wordEntry.get()):
-            if self.wordEntry.get() in list(map(lambda x: x.lower(), list(self.dict))):
-                self.a = 0
+            if self.selected_i != -1:
+                # if editing
+                self.dict.pop(self.dictTable.item(self.selected_i)['values'][0])
+                self.dictTable.item(self.selected_i, values=(self.wordEntry.get(), self.defEntry.get("1.0", 'end-1c')))
             else:
-                self.dict[self.wordEntry.get()] = self.defEntry.get("1.0",'end-1c')
+                # if new word
                 self.addRow(self.wordEntry.get(), self.defEntry.get("1.0",'end-1c'))
-                self.setText("", "")
-                self.statusLabel.configure(text="")
+
+            self.dict[self.wordEntry.get()] = self.defEntry.get("1.0",'end-1c')
+            self.setText("", "")
+            self.statusLabel.configure(text="")
+            for item in self.dictTable.selection():
+                self.dictTable.selection_remove(item)
+            self.selected_i = -1
         else:
-            self.statusLabel.configure(text="Invalid characters in word", bg='pink', font=("Garamond", 18))
+            self.statusLabel.configure(text="Invalid characters in word")
+            return
 
 
     def isText(self, text):
@@ -73,16 +93,26 @@ class EditDict(Frame):
         else:
             return False 
 
+
     def addRow(self, word, definition):
-        self.dictTable.insert(parent='',index='end',iid=self.currIID,text='',
+        self.dictTable.insert(parent='',index='end',iid=self.currIID,text='', 
                                 values=(word, definition))
         self.currIID += 1
+
+
+    def tableClick(self, event):
+        self.selected_i = self.dictTable.focus()
+        if self.selected_i:
+            row = self.dictTable.item(self.selected_i)['values']
+            self.setText(row[0], row[1])
+
 
     def setText(self, word, definition):
         self.wordEntry.delete(0, END)
         self.wordEntry.insert(0, word)
         self.defEntry.delete("1.0", END)
         self.defEntry.insert("1.0", definition)
+
 
     def startNew(self):
         self.dictTable.destroy()
@@ -92,22 +122,23 @@ class EditDict(Frame):
         self.dictTable['columns'] = ('word', 'definition')
 
         self.dictTable.column("#0", width=0,  stretch=NO)
-        self.dictTable.column("word",anchor=CENTER, width=80)
-        self.dictTable.column("definition",anchor=CENTER,width=80)
+        self.dictTable.column("word",anchor=CENTER, width=180)
+        self.dictTable.column("definition",anchor=CENTER,width=280)
 
         self.dictTable.heading("#0",text="",anchor=CENTER)
-        self.dictTable.heading("word",text="Word",anchor=CENTER)
-        self.dictTable.heading("definition",text="Definition",anchor=CENTER)
+        self.dictTable.heading("word",text="Word", anchor=CENTER)
+        self.dictTable.heading("definition", text="Definition", anchor=CENTER)
         
         # source: https://www.pythontutorial.net/tkinter/tkinter-theme/
         style = ttk.Style(self)
         # set ttk theme to "clam" which support the fieldbackground option
         style.theme_use("clam")
-        style.configure("Treeview", background="#c17b9f", 
-                        fieldbackground="#c17b9f", foreground="white",font=("Georgia", 15))
+        style.configure("Treeview", rowheight=20, background="#c17b9f", 
+                        fieldbackground="#c17b9f", foreground="white", font=("Georgia"))
+        style.configure("Treeview.Heading", font=("Garamond"))
 
         self.dictTable.pack(padx=4)
-
+        self.dictTable.bind("<Double-1>", self.tableClick)
 
         self.currIID = 0
 
@@ -120,32 +151,43 @@ class EditDict(Frame):
             for key in list(self.dict):
                 self.addRow(key, self.dict[key])
             self.nameEntry.insert(0, const.CURRDICT)
-            self.nameEntry['state'] = 'disabled'
         else:
             # creating new
             self.nameEntry.insert(0, "")
 
 
     def saveReturn(self):
+        # check dict name
         if self.nameEntry.get() == "":
-            self.statusLabel.configure(text="Dictionary name cannot be empty", bg='pink', font=("Garamond", 18))
+            self.statusLabel.configure(text="Dictionary name cannot be empty")
             return
-
+        if len(self.nameEntry.get()) > 16:
+            self.statusLabel.configure(text="Dictionary name cannot exceed 16 characters")
+            return
         if not self.isText(self.nameEntry.get()):
-            self.statusLabel.configure(text="Invalid characters in dictionary name",bg='pink', font=("Garamond", 18))
+            self.statusLabel.configure(text="Invalid characters in dictionary name")
             return
 
         if const.CURRDICT != self.nameEntry.get():
             # if new name
-            # check name does not exist already in user created dicts
-            if self.nameEntry.get() not in const.Db.getDictNames(preset=False):
+            # check name does not exist already
+            if self.nameEntry.get() not in const.Db.getDictNames(preset=False) and \
+                self.nameEntry.get() not in const.Db.getDictNames(preset=True):
                 # delete old dict 
-                const.Db.deleteDict(const.CURRDICT)
+                if const.CURRDICT != "":
+                    const.Db.deleteDict(const.CURRDICT)
                 const.CURRDICT = self.nameEntry.get()
             else: 
-                self.statusLabel.configure(text="Dictionary name already exists", bg='pink', font=("Garamond", 18))
+                self.statusLabel.configure(text="Dictionary name already exists")
+                return
+        
+        if len(list(self.dict)) == 0:
+            self.statusLabel.configure(text="Dictionary is empty")
+            return
+
         const.Db.saveDict(const.CURRDICT, self.dict)
         self.noSaveReturn()
+
 
     def noSaveReturn(self):
         self.master.master.showDictList()

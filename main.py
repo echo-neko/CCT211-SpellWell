@@ -58,7 +58,6 @@ class SpellWellApp(Tk):
         actionsMenu = Menu(menubar, tearoff=0)
         actionsMenu.add_command(label="MainMenu", command=self.showMainMenu)
         actionsMenu.add_command(label="Dict List", command=self.showDictList)
-        actionsMenu.add_command(label="High Scores", command=self.showScore)
         actionsMenu.add_command(label="About", command=self.showAbout)
         menubar.add_cascade(label="Menu", menu=actionsMenu)
 
