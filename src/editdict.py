@@ -56,7 +56,6 @@ class EditDict(Frame):
         self.noSaveButton.pack(pady=5)
 
 
-
     def addEntry(self):
         if self.wordEntry.get() == "":
             self.statusLabel.configure(text="Word cannot be empty")
