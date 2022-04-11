@@ -4,6 +4,7 @@ import random
 import src.constants as const
 from src.timer import Timer
 from customTk.MyButton import MyButton
+from customTk.MyLabel import MyLabel
 
 class Game(Frame):
 
@@ -13,29 +14,29 @@ class Game(Frame):
         self.timer = Timer(self, controller)
         
         name = const.CURRDICT 
-        self.dictNameLabel = Label(self, text=name , bg='pink', fg='#c17b9f', font=("Garamond", 24))
+        self.dictNameLabel = MyLabel(self, text=name ,  width=100, fontSize=0)
         self.dictNameLabel.pack(pady=3)
         
-        self.definition = Label(self, text="", bg='pink', font=("Garamond", 18))
+        self.definition = MyLabel(self, text="", width=200, fontSize=0)
         self.definition.pack(pady=25)
 
-        self.underscores = Label(self, text="", bg='pink', font=("Garamond", 25))
+        self.underscores = MyLabel(self, text="",width=200, fontSize=0)
         self.underscores.pack(pady=2)
 
         self.wordValue = StringVar()
         self.wordValue.trace('w', self.limitInputLength)
         valCommand = (self.register(self.isText), '%S')
-        self.entry = Entry(self, font=("Garamond", 18), validate="all", validatecommand=valCommand, textvariable=self.wordValue, justify='center')
+        self.entry = Entry(self, font=("Georgia", 17), validate="all", validatecommand=valCommand, textvariable=self.wordValue, justify='center')
         self.entry.bind("<Return>", self.checkEntry)
         self.entry.pack()
         
-        self.statusLabel = Label(self, text="", width=20, bg='pink', fg='red', font=("Garamond", 18))
+        self.statusLabel = Label(self, text="", width=90, fg='red', bg='pink', font=("Georgia",13))
         self.statusLabel.pack()
 
         self.checkButton = MyButton(self, text="Check", width=10, command=self.checkEntry, colorLevel=1, fontSize=16)
         self.checkButton.pack(pady=10)
 
-        self.scoreLabel = Label(self, text="", width=20, bg='pink', font=("Garamond", 18))
+        self.scoreLabel = MyLabel(self, text="", width=90, fontSize=0)
         self.scoreLabel.pack()
 
         self.playAgainButton = MyButton(self, width=20, text="Play Again", command=self.newGame, colorLevel=0)
