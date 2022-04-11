@@ -52,8 +52,8 @@ class EditDict(Frame):
         self.saveButton = MyButton(self, text="Save and Return to List", command=self.saveReturn, width=25, colorLevel=0)
         self.saveButton.pack(pady=5)
 
-        self.noSaveButton = MyButton(self, text="Return to List without Saving",command=self.noSaveReturn, width=25, colorLevel=0)
-        self.noSaveButton.pack(pady=5)
+        self.deleteButton = MyButton(self, text="Delete Dictionary",command=self.deleteReturn, width=25, colorLevel=2)
+        self.deleteButton.pack(pady=5)
 
 
     def addEntry(self):
@@ -185,8 +185,10 @@ class EditDict(Frame):
             return
 
         const.Db.saveDict(const.CURRDICT, self.dict)
-        self.noSaveReturn()
+        self.master.master.showDictList()
 
 
-    def noSaveReturn(self):
+    def deleteReturn(self):
+        if const.CURRDICT != "":
+            const.Db.deleteDict(const.CURRDICT)
         self.master.master.showDictList()

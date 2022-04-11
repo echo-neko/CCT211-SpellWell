@@ -45,12 +45,12 @@ class DictList(Frame):
         playButton.pack(side=RIGHT)
 
         if not const.Db.checkIsPreset(name):
-            editButton = MyButton(frame, text="Edit", width=7, colorLevel=2, command= lambda: self.editDict(name))
+            editButton = MyButton(frame, text="Edit", width=7, command= lambda: self.editDict(name))
             editButton.pack(side=RIGHT)
         else:
             label.configure(width=14+7)
 
-        pastScoresButton = MyButton(frame, text="Scores", width=7, colorLevel=2)# TODO command
+        pastScoresButton = MyButton(frame, text="Scores", width=7)# TODO command
         pastScoresButton.pack(side=RIGHT)
         
 
@@ -73,6 +73,9 @@ class DictList(Frame):
         self.scroll_frame.master.bind_all('<MouseWheel>', lambda event: self.on_vertical(event, numDict=len(dictNames)))
 
         if not preset:
+            if len(dictNames) == 0:
+                label = Label(self.scroll_frame, width=14, text="", bg='pink', font=("Garamond", 16))
+                label.pack(side=LEFT, expand=1, fill=X)
             createDictButton = MyButton(self.scroll_frame, text="Make New", width=10, colorLevel=1, command= lambda: self.editDict(""))
             createDictButton.pack(pady=5)
 
