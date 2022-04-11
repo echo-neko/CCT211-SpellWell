@@ -1,6 +1,7 @@
 from tkinter import *
 import src.constants as const
 from customTk.MyButton import MyButton
+from customTk.MyLabel import MyLabel
         
 class DictList(Frame):
     '''
@@ -38,7 +39,7 @@ class DictList(Frame):
         frame = Frame(self.scroll_frame, pady=5, bg='pink')
         frame.pack(fill=X, expand=1)
 
-        label = Label(frame, width=14, text=name, bg='pink', font=("Garamond", 16))
+        label = MyLabel(frame, width=14, text=name, fontSize=0)
         label.pack(side=LEFT, expand=1, fill=X)
 
         playButton = MyButton(frame, text="Play", width=7, colorLevel=1, command= lambda: self.playDict(name))
