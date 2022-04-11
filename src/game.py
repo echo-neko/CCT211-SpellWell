@@ -5,6 +5,7 @@ import src.constants as const
 from src.timer import Timer
 from customTk.MyButton import MyButton
 from customTk.MyLabel import MyLabel
+import csv
 
 class Game(Frame):
 
@@ -144,8 +145,14 @@ class Game(Frame):
         if won:
             self.statusLabel.configure(fg='green')
             self.statusLabel.configure(text="you win!")
+            with open('past_scores.csv', 'a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow((const.CURRDICT, self.score))            
         else:
             self.statusLabel.configure(text="game over...")
+            with open('past_scores.csv', 'a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow((const.CURRDICT, self.score))            
         
         self.checkButton["state"] = "disabled"
 
