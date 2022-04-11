@@ -7,11 +7,12 @@
 ##############################################
 
 '''
-There are some issues where some features of tkinter do not work
+There are some issues (ex: scrollbar) where some features of tkinter do not work
 on mac as they do on windows.
 
 This link refers to the problems mac users are having with tkinter
 Therefore it is best to experience this on a windows desktop
+
 Link :https://www.reddit.com/r/Python/comments/q2rpmp/tkinter_for_python_310_broken_on_macos/
 
 '''
