@@ -18,7 +18,7 @@ class EditDict(Frame):
 
         nameEntryFrame = Frame(self, bg='pink')
         nameEntryFrame.pack()
-        nameEntryLabel = Label(nameEntryFrame, text="Dictionary Name: ",bg='pink', font=("Georgia",15))
+        nameEntryLabel = MyLabel(nameEntryFrame, text="Dictionary Name: ",fontSize=0)
         nameEntryLabel.pack(side=LEFT)
         self.nameEntry = Entry(nameEntryFrame, width=30, validate="all", validatecommand=valCommand, bg='pink', font=("Georgia",15))
         self.nameEntry.pack(side=LEFT)
