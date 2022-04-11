@@ -3,6 +3,7 @@ from tkinter import ttk
 import re
 import src.constants as const
 from customTk.MyButton import MyButton
+from customTk.MyLabel import MyLabel
 
 class EditDict(Frame):
 
@@ -17,9 +18,9 @@ class EditDict(Frame):
 
         nameEntryFrame = Frame(self, bg='pink')
         nameEntryFrame.pack()
-        nameEntryLabel = Label(nameEntryFrame, text="Dictionary Name: ", highlightbackground='pink', bg='pink', font=("Georgia"))
+        nameEntryLabel = Label(nameEntryFrame, text="Dictionary Name: ",bg='pink', font=("Georgia",15))
         nameEntryLabel.pack(side=LEFT)
-        self.nameEntry = Entry(nameEntryFrame, width=30, validate="all", validatecommand=valCommand, font=("Garamond"))
+        self.nameEntry = Entry(nameEntryFrame, width=30, validate="all", validatecommand=valCommand, bg='pink', font=("Georgia",15))
         self.nameEntry.pack(side=LEFT)
 
         self.table_frame = Frame(self, width=30, bg='pink')
@@ -31,16 +32,16 @@ class EditDict(Frame):
 
         wordEntryFrame = Frame(self, bg='pink')
         wordEntryFrame.pack()
-        wordEntryLabel = Label(wordEntryFrame, text="Word: ", width=8, anchor=E, highlightbackground='pink', bg='pink', font=("Georgia"))
+        wordEntryLabel = Label(wordEntryFrame, text="Word: ", width=8, anchor=E, bg='pink', font=("Georgia",15))
         wordEntryLabel.pack(side=LEFT)
-        self.wordEntry = Entry(wordEntryFrame, width=30, validate="all", validatecommand=valCommand, font=("Garamond"))
+        self.wordEntry = Entry(wordEntryFrame, width=30, validate="all", validatecommand=valCommand, font=("Georgia"))
         self.wordEntry.pack(side=LEFT, pady=2)
 
         defEntryFrame = Frame(self, bg='pink')
         defEntryFrame.pack()
-        defEntryLabel = Label(defEntryFrame, text="Definition: \n\n\n", width=8, anchor=E, highlightbackground='pink', bg='pink', font=("Georgia"))
+        defEntryLabel = Label(defEntryFrame, text="Definition: \n\n\n", width=8, anchor=E, bg='pink', font=("Georgia",15))
         defEntryLabel.pack(side=LEFT)
-        self.defEntry = Text(defEntryFrame, width = 30, height= 5, font=("Garamond"))
+        self.defEntry = Text(defEntryFrame, width = 30, height= 5, font=("Georgia"))
         self.defEntry.pack(side=LEFT, pady=4)
         
         self.addWordButton = MyButton(self, text="Add" ,width=10, command=self.addEntry, colorLevel=1)
