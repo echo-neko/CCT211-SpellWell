@@ -1,4 +1,4 @@
-from db.db import DB
+from dict_db.db import DB
 
 global Db 
 Db = DB()
