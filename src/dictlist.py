@@ -23,6 +23,7 @@ class DictList(Frame):
         canvas = Canvas(self, bg='pink')
         scrollbar = Scrollbar(self, orient="vertical", command=canvas.yview)
         self.scroll_frame = Frame(canvas, bg='pink')
+        scrollbar.pack(side="right", fill="y")
         self.scroll_frame.bind(
             "<Configure>",
             lambda e: canvas.configure(
@@ -32,7 +33,6 @@ class DictList(Frame):
         canvas.create_window((0, 0), window=self.scroll_frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.pack(side="left", fill="both", expand=True)
-        scrollbar.pack(side="right", fill="y")
 
 
     def listADict(self, name):
@@ -62,7 +62,7 @@ class DictList(Frame):
         for name in dictNames:
             self.listADict(name)
         if not preset:
-            createDictButton = Button(self.scroll_frame, text="Make New", command= lambda: self.editDict(""),width=10, highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia", 16))
+            createDictButton = Button(self.scroll_frame, text="Make New", width=10, command= lambda: self.editDict(""))
             createDictButton.pack()
 
     def playDict(self, name):
