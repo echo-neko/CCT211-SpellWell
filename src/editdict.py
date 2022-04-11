@@ -18,6 +18,8 @@ class EditDict(Frame):
 
         self.table_frame = Frame(self)
         self.table_frame.pack(side=LEFT)
+        self.dictTable = ttk.Treeview(self.table_frame)
+        self.dictTable.pack()
         
         self.currIID = 0
         
@@ -83,9 +85,7 @@ class EditDict(Frame):
         self.defEntry.insert("1.0", definition)
 
     def startNew(self):
-
-        if (self.currIID != 0):
-            self.dictTable.destroy()
+        self.dictTable.destroy()
 
         self.dictTable = ttk.Treeview(self.table_frame)
 

@@ -91,7 +91,7 @@ class Game(Frame):
 
     def newGame(self):
         # call this from other scenes before switching to this scene
-        self.label = self.label.configure(text=const.CURRDICT)
+        self.label.configure(text=const.CURRDICT)
         self.dictionary = const.Db.getDict(const.CURRDICT)
         self.remainingKeys = list(self.dictionary)
         self.timer.destroy()
