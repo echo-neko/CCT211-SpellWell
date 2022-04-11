@@ -27,7 +27,7 @@ class EditDict(Frame):
         self.wordEntry = Entry(self, validate="all", validatecommand=valCommand)
         self.wordEntry.pack(pady=2)
 
-        self.defEntry = Text(self, width = 40, bg='#cca0bb', font=("Garamond", 16))
+        self.defEntry = Text(self, width = 30, height= 15, bg='#cca0bb', font=("Garamond", 16))
         self.defEntry.pack(padx=4)
         
         self.wordButton = Button(self, text="Add" ,width=10, command=self.addEntry,highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia", 15))
