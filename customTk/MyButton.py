@@ -7,7 +7,7 @@ class MyButton(Button):
     def __init__(self, parent, text="", colorLevel=-1, fontSize=-1, height=-1, width=-1, command=None):
         Button.__init__(self, parent, text=text)
         
-        bgColors = ['#cca0bb', '#c17b9f','pink']
+        bgColors = ['#cca0bb', '#c17b9f', 'brown3', 'pink']
         if colorLevel >= len(bgColors):
             self.configure(highlightbackground=bgColors[-1], bg=bgColors[-1])
         else:

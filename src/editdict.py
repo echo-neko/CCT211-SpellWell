@@ -44,8 +44,12 @@ class EditDict(Frame):
         self.defEntry = Text(defEntryFrame, width = 30, height= 5, font=("Georgia"))
         self.defEntry.pack(side=LEFT, pady=4)
         
-        self.addWordButton = MyButton(self, text="Add" ,width=10, command=self.addEntry, colorLevel=1)
-        self.addWordButton.pack(pady=5)
+        addDelWordFrame = Frame(self, bg='pink')
+        addDelWordFrame.pack()
+        self.delWordButton = MyButton(addDelWordFrame, text="Delete" ,width=10, command=self.delEntry, colorLevel=2)
+        self.delWordButton.pack(side=LEFT, pady=5, padx=2)
+        self.addWordButton = MyButton(addDelWordFrame, text="Add" ,width=10, command=self.addEntry, colorLevel=1)
+        self.addWordButton.pack(side=RIGHT, pady=5, padx=2)
 
         self.statusLabel = Label(self, text="", highlightbackground='pink', bg='pink', fg="red", font=("Georgia"))
         self.statusLabel.pack()
@@ -53,8 +57,8 @@ class EditDict(Frame):
         self.saveButton = MyButton(self, text="Save and Return to List", command=self.saveReturn, width=25, colorLevel=0)
         self.saveButton.pack(pady=5)
 
-        self.noSaveButton = MyButton(self, text="Return to List without Saving",command=self.noSaveReturn, width=25, colorLevel=0)
-        self.noSaveButton.pack(pady=5)
+        self.delDictButton = MyButton(self, text="Delete Dictionary",command=self.deleteReturn, width=25, colorLevel=2)
+        self.delDictButton.pack(pady=5)
 
 
     def addEntry(self):
@@ -77,6 +81,7 @@ class EditDict(Frame):
 
             self.dict[self.wordEntry.get()] = self.defEntry.get("1.0",'end-1c')
             self.setText("", "")
+            self.delWordButton.pack_forget()
             self.statusLabel.configure(text="")
             for item in self.dictTable.selection():
                 self.dictTable.selection_remove(item)
@@ -85,6 +90,16 @@ class EditDict(Frame):
             self.statusLabel.configure(text="Invalid characters in word")
             return
 
+    def delEntry(self):
+        # selected_ should always be -1 when delete button visible
+        self.dict.pop(self.dictTable.item(self.selected_i)['values'][0])
+        self.dictTable.delete(self.selected_i)
+        self.setText("", "")
+        self.delWordButton.pack_forget()
+        self.statusLabel.configure(text="")
+        for item in self.dictTable.selection():
+            self.dictTable.selection_remove(item)
+        self.selected_i = -1
 
     def isText(self, text):
         alphabetRule = re.compile("[a-zA-Z -'.]+")
@@ -105,6 +120,7 @@ class EditDict(Frame):
         if self.selected_i:
             row = self.dictTable.item(self.selected_i)['values']
             self.setText(row[0], row[1])
+        self.delWordButton.pack(side=LEFT, pady=5, padx=2)
 
 
     def setText(self, word, definition):
@@ -144,6 +160,8 @@ class EditDict(Frame):
 
         self.nameEntry.delete(0, END)
         self.setText("", "")
+
+        self.delWordButton.pack_forget()
 
         if (const.CURRDICT != ""):
             # editing existing 
@@ -186,8 +204,10 @@ class EditDict(Frame):
             return
 
         const.Db.saveDict(const.CURRDICT, self.dict)
-        self.noSaveReturn()
+        self.master.master.showDictList()
 
 
-    def noSaveReturn(self):
+    def deleteReturn(self):
+        if const.CURRDICT != "":
+            const.Db.deleteDict(const.CURRDICT)
         self.master.master.showDictList()
