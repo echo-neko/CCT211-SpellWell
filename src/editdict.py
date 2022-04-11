@@ -39,7 +39,7 @@ class EditDict(Frame):
         self.noSaveButton = Button(self, text="Return to List without Saving",command=self.noSaveReturn,width=30, highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 15))
         self.noSaveButton.pack(pady=5)
 
-        self.statusLabel = Label(self, text="", width=20, highlightbackground='pink', bg='pink', fg="black", font=("Georgia", 16))
+        self.statusLabel = Label(self, text="", width=40, highlightbackground='pink', bg='pink', fg="black", font=("Georgia", 16))
         self.statusLabel.pack()
 
 
@@ -128,11 +128,11 @@ class EditDict(Frame):
 
     def saveReturn(self):
         if self.nameEntry.get() == "":
-            self.statusLabel.configure(text="Dictionary name cannot be empty", bg='pink', font=("Garamond", 18))
+            self.statusLabel.configure(text="Dictionary name cannot be empty", bg='pink', font=("Garamond", 16))
             return
 
         if not self.isText(self.nameEntry.get()):
-            self.statusLabel.configure(text="Invalid characters in dictionary name",bg='pink', font=("Garamond", 18))
+            self.statusLabel.configure(text="Invalid characters in dictionary name",bg='pink', font=("Garamond", 16))
             return
 
         if const.CURRDICT != self.nameEntry.get():
@@ -143,7 +143,7 @@ class EditDict(Frame):
                 const.Db.deleteDict(const.CURRDICT)
                 const.CURRDICT = self.nameEntry.get()
             else: 
-                self.statusLabel.configure(text="Dictionary name already exists", bg='pink', font=("Garamond", 18))
+                self.statusLabel.configure(text="Dictionary name already exists", bg='pink', font=("Garamond", 16))
         const.Db.saveDict(const.CURRDICT, self.dict)
         self.noSaveReturn()
 
