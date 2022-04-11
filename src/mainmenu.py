@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.font import Font
 from PIL import ImageTk, Image
 from customTk.MyButton import MyButton
+from customTk.MyLabel import MyLabel
 
 
 class MainMenu(Frame):
@@ -9,23 +10,10 @@ class MainMenu(Frame):
     def __init__(self, parent, controller, width, height):
         Frame.__init__(self, parent, width=width, height=height)
         
-        # Define Fonts
-        mainFont_i = Font(
-	family="Georgia",
-	size=35,
-        slant="italic",
-	underline=0,
-	overstrike=0)
-        mainFont = Font(
-	family="Georgia",
-	size=40,
-        slant="roman",
-	underline=0,
-	overstrike=0)
         
         #displays title of the game
-        self.title = Label(self, text="Welcome To", width=20,bg="pink", font= mainFont_i)
-        self.title2 = Label(self, text="*･｡*☆Spell Well!☆*･｡*･", width=20,bg="pink", font= mainFont)
+        self.title = MyLabel(self, text="Welcome To", width=20, fontSize=1)
+        self.title2 = MyLabel(self, text="*･｡*☆Spell Well!☆*･｡*･", width=20, fontSize=2)
 
         '''
         src: https://www.tutorialspoint.com/how-to-place-an-image-into-a-frame-in-tkinter
