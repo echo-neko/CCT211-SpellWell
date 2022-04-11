@@ -1,6 +1,6 @@
-
 from tkinter.font import Font
 from tkinter import *
+from customTk.MyButton import MyButton
 
 class About(Frame):
     '''
@@ -9,8 +9,6 @@ class About(Frame):
 
     def __init__(self, parent, controller, width, height):
         Frame.__init__(self, parent, width=width, height=height)
-        self.parent = parent
-       
 
         # Define Fonts
         textFont = Font(
@@ -23,13 +21,6 @@ class About(Frame):
         titleFont = Font(
 	family="Georgia",
 	size=37,
-        slant="roman",
-	underline=0,
-	overstrike=0)
-
-        buttonFont = Font(
-	family="Georgia",
-	size=20,
         slant="roman",
 	underline=0,
 	overstrike=0)
@@ -49,7 +40,6 @@ class About(Frame):
         self.preset_desc = Label(self,text="We provide a few preset dictionaries to play with, but players have the ability to create unique dictionaries with their own terms and definitions as well. The score will be calculated based on the time spent on each word.", wraplength=450, justify="center", bg="pink", font=textFont)
         self.preset_desc.pack()
 
-  
-        button2= Button(self, text="Play", height=2, width=8, highlightbackground='pink', bg='pink', fg="black", font= buttonFont, command=self.parent.master.showDictList)
-        button2.pack(pady=3)
+        playButton= MyButton(self, text="Play", height=2, width=8, colorLevel=1, command=self.master.master.showDictList)
+        playButton.pack(pady=3)
 

@@ -1,7 +1,6 @@
 from tkinter import *
 import src.constants as const
-from tkinter.font import Font
-
+from customTk.MyButton import MyButton
         
 class DictList(Frame):
     '''
@@ -14,10 +13,10 @@ class DictList(Frame):
     
         self.controller = controller
 
-        self.presetButton = Button(self, text="Preset", command=lambda: self.showDicts(True), width=10, highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 16))
+        self.presetButton = MyButton(self, text="Preset", command=lambda: self.showDicts(True), width=10, colorLevel=0)
         self.presetButton.pack(pady=3)
 
-        self.originalButton = Button(self, text="Original", width=10, command=lambda: self.showDicts(False), highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 16))
+        self.originalButton = MyButton(self, text="Original", width=10, command=lambda: self.showDicts(False), colorLevel=0)
         self.originalButton.pack(pady=5)
 
         canvas = Canvas(self, bg='pink')
@@ -42,16 +41,16 @@ class DictList(Frame):
         label = Label(frame, width=14, text=name, bg='pink', font=("Garamond", 16))
         label.pack(side=LEFT, expand=1, fill=X)
 
-        playButton = Button(frame, text="Play", width=7, command= lambda: self.playDict(name), highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia"))
+        playButton = MyButton(frame, text="Play", width=7, colorLevel=1, command= lambda: self.playDict(name))
         playButton.pack(side=RIGHT)
 
         if not const.Db.checkIsPreset(name):
-            editButton = Button(frame, text="Edit", width=7, command= lambda: self.editDict(name), highlightbackground='pink', bg='pink', fg="black", font=("Georgia"))
+            editButton = MyButton(frame, text="Edit", width=7, colorLevel=2, command= lambda: self.editDict(name))
             editButton.pack(side=RIGHT)
         else:
             label.configure(width=14+7)
 
-        pastScoresButton = Button(frame, text="Scores", width=7, highlightbackground='pink', bg='pink', fg="black", font=("Georgia"))# TODO command
+        pastScoresButton = MyButton(frame, text="Scores", width=7, colorLevel=2)# TODO command
         pastScoresButton.pack(side=RIGHT)
         
 
@@ -74,7 +73,7 @@ class DictList(Frame):
         self.scroll_frame.master.bind_all('<MouseWheel>', lambda event: self.on_vertical(event, numDict=len(dictNames)))
 
         if not preset:
-            createDictButton = Button(self.scroll_frame, text="Make New", width=10, command= lambda: self.editDict(""),  highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia"))
+            createDictButton = MyButton(self.scroll_frame, text="Make New", width=10, colorLevel=1, command= lambda: self.editDict(""))
             createDictButton.pack(pady=5)
 
     def on_vertical(self, event, numDict=0):

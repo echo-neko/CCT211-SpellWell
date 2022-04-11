@@ -3,6 +3,7 @@ import re
 import random
 import src.constants as const
 from src.timer import Timer
+from customTk.MyButton import MyButton
 
 class Game(Frame):
 
@@ -28,19 +29,19 @@ class Game(Frame):
         self.entry.bind("<Return>", self.checkEntry)
         self.entry.pack()
         
-        self.button = Button(self, text="Check", width=10, command=self.checkEntry,highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 16))
-        self.button.pack(pady=10)
-
-        self.statusLabel = Label(self, text="",width=20, bg='pink', fg='red', font=("Garamond", 18))
+        self.statusLabel = Label(self, text="", width=20, bg='pink', fg='red', font=("Garamond", 18))
         self.statusLabel.pack()
+
+        self.checkButton = MyButton(self, text="Check", width=10, command=self.checkEntry, colorLevel=1, fontSize=16)
+        self.checkButton.pack(pady=10)
 
         self.scoreLabel = Label(self, text="", width=20, bg='pink', font=("Garamond", 18))
         self.scoreLabel.pack()
 
-        self.playAgainButton = Button(self, text="Play Again", width=10, command=self.newGame, highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 16))
-        self.playAgainButton.pack()
-        self.dictListButton = Button(self, text="Return to List", width=10, command=self.master.master.showDictList, highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 16))
-        self.dictListButton.pack()
+        self.playAgainButton = MyButton(self, width=20, text="Play Again", command=self.newGame, colorLevel=0)
+        self.playAgainButton.pack(pady=10)
+        self.dictListButton = MyButton(self, width=20, text="Return to List", command=self.master.master.showDictList, colorLevel=0)
+        self.dictListButton.pack(pady=10)
 
         self.newGame()
 
@@ -56,13 +57,10 @@ class Game(Frame):
                 self.randomKey()
         else:
             # wrong answer
-
             if (len(self.remainingKeys) != 0) :            
                 self.statusLabel.configure(text="try again")
-
             if (self.currKey != "") :            
                 self.statusLabel.configure(text="try again")
-
         
 
     def randomKey(self):
@@ -82,6 +80,7 @@ class Game(Frame):
         else:
             return False 
 
+
     # source : https://stackoverflow.com/questions/33518978/python-how-to-limit-an-entry-box-to-2-characters-max
     def limitInputLength(self, *args):
         value = self.wordValue.get()
@@ -89,28 +88,36 @@ class Game(Frame):
         if len(value) > i: 
             self.wordValue.set(value[:i])
 
+
     def updateScore(self):
         secsUsed = (self.startMin*60 + self.startSec) - (int(self.timer.minute.get())*60 + int(self.timer.second.get())) 
         self.score +=  round((const.SECS_PER_WORD / secsUsed) * 10)
         self.scoreLabel.configure(text="Score: " + str(self.score))
+
 
     def newGame(self):
         # call this from other scenes before switching to this scene
         self.dictNameLabel.configure(text=const.CURRDICT)
         self.dictionary = const.Db.getDict(const.CURRDICT)
         self.remainingKeys = list(self.dictionary)
+        self.currKey = ""
+        self.score = 0
+
         self.timer.destroy()
         self.timer = Timer(self, self.controller)
         self.timer.startTimer(0, len(self.remainingKeys)*const.SECS_PER_WORD)
-        self.currKey = ""
-        self.score = 0
-        self.button["state"] = "normal"
+        
+        self.checkButton["state"] = "normal"
+        
         self.statusLabel.configure(fg='red')
         self.statusLabel.configure(text="")
         self.scoreLabel.configure(text="Score: " + str(self.score))
+        
         self.playAgainButton.pack_forget()
         self.dictListButton.pack_forget()
+        
         self.randomKey()
+
 
     def gameEnd(self, won):
         self.definition.configure(text="")
@@ -120,12 +127,16 @@ class Game(Frame):
         self.currKey = ""
 
         self.timer.stopTimer()
+
         if won:
             self.statusLabel.configure(fg='green')
             self.statusLabel.configure(text="you win!")
         else:
             self.statusLabel.configure(text="game over...")
-        self.button["state"] = "disabled"
-        self.playAgainButton.pack()
-        self.dictListButton.pack()
+        
+        self.checkButton["state"] = "disabled"
+
+        self.playAgainButton.pack(pady=10)
+        self.dictListButton.pack(pady=10)
+        
         # TODO save score 

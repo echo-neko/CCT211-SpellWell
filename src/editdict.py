@@ -1,8 +1,8 @@
 from tkinter import *
 from tkinter import ttk
 import re
-from tkinter import font
 import src.constants as const
+from customTk.MyButton import MyButton
 
 class EditDict(Frame):
 
@@ -43,16 +43,16 @@ class EditDict(Frame):
         self.defEntry = Text(defEntryFrame, width = 30, height= 5, font=("Garamond"))
         self.defEntry.pack(side=LEFT, pady=4)
         
-        self.addWordButton = Button(self, text="Add" ,width=10, command=self.addEntry,highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia", 15))
+        self.addWordButton = MyButton(self, text="Add" ,width=10, command=self.addEntry, colorLevel=1)
         self.addWordButton.pack(pady=5)
 
         self.statusLabel = Label(self, text="", highlightbackground='pink', bg='pink', fg="red", font=("Georgia"))
         self.statusLabel.pack()
 
-        self.saveButton = Button(self, text="Save and Return to List", command=self.saveReturn, width=30,highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 15))
+        self.saveButton = MyButton(self, text="Save and Return to List", command=self.saveReturn, width=25, colorLevel=0)
         self.saveButton.pack(pady=5)
 
-        self.noSaveButton = Button(self, text="Return to List without Saving",command=self.noSaveReturn,width=30, highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 15))
+        self.noSaveButton = MyButton(self, text="Return to List without Saving",command=self.noSaveReturn, width=25, colorLevel=0)
         self.noSaveButton.pack(pady=5)
 
 
