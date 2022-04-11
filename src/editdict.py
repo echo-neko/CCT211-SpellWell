@@ -46,7 +46,7 @@ class EditDict(Frame):
         self.addWordButton = Button(self, text="Add" ,width=10, command=self.addEntry,highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia", 15))
         self.addWordButton.pack(pady=5)
 
-        self.statusLabel = Label(self, text="", highlightbackground='pink', bg='pink', fg="black", font=("Georgia"))
+        self.statusLabel = Label(self, text="", highlightbackground='pink', bg='pink', fg="red", font=("Georgia"))
         self.statusLabel.pack()
 
         self.saveButton = Button(self, text="Save and Return to List", command=self.saveReturn, width=30,highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 15))

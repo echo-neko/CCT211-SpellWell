@@ -25,21 +25,26 @@ class Game(Frame):
         self.wordValue.trace('w', self.limitInputLength)
         valCommand = (self.register(self.isText), '%S')
         self.entry = Entry(self, font=("Garamond", 18), validate="all", validatecommand=valCommand, textvariable=self.wordValue, justify='center')
+        self.entry.bind("<Return>", self.checkEntry)
         self.entry.pack()
         
         self.button = Button(self, text="Check", width=10, command=self.checkEntry,highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 16))
-
         self.button.pack(pady=10)
 
-        self.statusLabel = Label(self, text="",width=20, bg='pink', font=("Garamond", 18))
+        self.statusLabel = Label(self, text="",width=20, bg='pink', fg='red', font=("Garamond", 18))
         self.statusLabel.pack()
 
         self.scoreLabel = Label(self, text="", width=20, bg='pink', font=("Garamond", 18))
         self.scoreLabel.pack()
 
+        self.playAgainButton = Button(self, text="Play Again", width=10, command=self.newGame, highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 16))
+        self.playAgainButton.pack()
+        self.dictListButton = Button(self, text="Return to List", width=10, command=self.master.master.showDictList, highlightbackground='#cca0bb', bg='#cca0bb', fg="black", font=("Georgia", 16))
+        self.dictListButton.pack()
+
         self.newGame()
 
-    def checkEntry(self):
+    def checkEntry(self, *args):
         if self.entry.get().lower() == self.currKey.lower():
             # correct answer
             self.statusLabel.configure(text="")
@@ -100,8 +105,11 @@ class Game(Frame):
         self.currKey = ""
         self.score = 0
         self.button["state"] = "normal"
+        self.statusLabel.configure(fg='red')
         self.statusLabel.configure(text="")
         self.scoreLabel.configure(text="Score: " + str(self.score))
+        self.playAgainButton.pack_forget()
+        self.dictListButton.pack_forget()
         self.randomKey()
 
     def gameEnd(self, won):
@@ -113,8 +121,11 @@ class Game(Frame):
 
         self.timer.stopTimer()
         if won:
+            self.statusLabel.configure(fg='green')
             self.statusLabel.configure(text="you win!")
         else:
             self.statusLabel.configure(text="game over...")
         self.button["state"] = "disabled"
+        self.playAgainButton.pack()
+        self.dictListButton.pack()
         # TODO save score 

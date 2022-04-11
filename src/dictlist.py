@@ -74,8 +74,8 @@ class DictList(Frame):
         self.scroll_frame.master.bind_all('<MouseWheel>', lambda event: self.on_vertical(event, numDict=len(dictNames)))
 
         if not preset:
-            createDictButton = Button(self.scroll_frame, text="Make New", width=10, command= lambda: self.editDict(""))
-            createDictButton.pack()
+            createDictButton = Button(self.scroll_frame, text="Make New", width=10, command= lambda: self.editDict(""),  highlightbackground='#c17b9f', bg='#c17b9f', fg="black", font=("Georgia"))
+            createDictButton.pack(pady=5)
 
     def on_vertical(self, event, numDict=0):
         if numDict > 9:
