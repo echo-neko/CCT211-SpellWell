@@ -170,7 +170,6 @@ class EditDict(Frame):
             for key in list(self.dict):
                 self.addRow(key, self.dict[key])
             self.nameEntry.insert(0, const.CURRDICT)
-            self.statusLabel.configure(text="double click table to edit a word")
         else:
             # creating new
             self.nameEntry.insert(0, "")

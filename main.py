@@ -23,7 +23,6 @@ from src.editdict import EditDict
 from src.mainmenu import MainMenu
 from src.dictlist import DictList
 from src.about import About
-from src.scores import Scores
 
 
 '''source: https://stackoverflow.com/questions/7546050/switch-between-two-frames-in-tkinter'''
@@ -48,7 +47,7 @@ class SpellWellApp(Tk):
         parent.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (MainMenu, Game, EditDict, DictList, About, Scores):
+        for F in (MainMenu, Game, EditDict, DictList, About):
             page_name = F.__name__
             frame = F(parent=parent, controller=self, width=490, height=630)
             
@@ -97,8 +96,8 @@ class SpellWellApp(Tk):
         self.show_frame("DictList")
         self.frames["DictList"].showDicts(preset=True)
     
-    def showScores(self):
-        self.show_frame("Scores")
+    def showScore(self):
+        pass
 
     def showAbout(self):
         #shows the about frame/window

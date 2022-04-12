@@ -1,16 +1,13 @@
-from sys import path
-path.append('\\Users\\aotis\\Desktop\\UTM\\Year 3\\Winter Term\\CCT211\\CCT211-SpellWell-main\\src')
-import constants as const
+import src.constants as const
 import csv
 import matplotlib
-matplotlib.use("TkAgg")
-from matplotlib import pyplot as plt
-#import os
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 class Plot():
     def __init__(self):
         self.plots = plots
-
+         
     def listDictScores(whichDict):
         whichDict_score_name = []
         whichDict_score_value = []
@@ -30,26 +27,21 @@ class Plot():
         pltvalue.reverse()
         
         plt.plot(range(1, (len(pltname) + 1)), pltvalue, 'm*-.')
-        plt.axis([1, 10, 0, 600])
+        plt.axis([1, 10, 0, 800])
         for i, txt in enumerate(pltvalue):
                 plt.annotate(txt, ((range(1, (len(pltname) + 1)))[i], pltvalue[i]))  
         plt.ylabel('Score')
         plt.xlabel('Past Games')
-        plt.savefig('images/graphs/{}.png'.format(dictName))
-        #plt.show()
-        plt.clf()        
-
+        plt.savefig('\\Users\\aotis\\Desktop\\newnew\\CCT211-SpellWell-main\\scores\\graphs\\{}.png'.format(dictName))       
 
     def savePresetPlots():
         dictNames = const.Db.getDictNames(True)
         for name in dictNames:
-            print(name)
             Plot.plotScores(name)
         
     def saveCustomPlots():
         dictNames = const.Db.getDictNames(False)
         for name in dictNames:
-            print(name)
             Plot.plotScores(name)
         
 Plot.savePresetPlots()
