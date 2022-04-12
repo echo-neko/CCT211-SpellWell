@@ -1,3 +1,4 @@
+from doctest import master
 from tkinter import *
 import src.constants as const
 from customTk.MyButton import MyButton
@@ -54,7 +55,7 @@ class DictList(Frame):
         else:
             label.configure(width=14+7)
 
-        pastScoresButton = MyButton(frame, text="Scores", width=7)# TODO command
+        pastScoresButton = MyButton(frame, text="Scores", width=7, command= lambda: self.showScores())# TODO command
         pastScoresButton.pack(side=RIGHT)
         
 
@@ -106,3 +107,6 @@ class DictList(Frame):
         '''
         const.CURRDICT = name
         self.master.master.showEditDict()
+
+    def showScores(self):
+        self.master.master.showScores()

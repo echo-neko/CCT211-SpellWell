@@ -1,4 +1,3 @@
-from tkinter.font import Font
 from tkinter import *
 from customTk.MyButton import MyButton
 from customTk.MyLabel import MyLabel

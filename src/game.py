@@ -121,6 +121,8 @@ class Game(Frame):
         
         self.checkButton["state"] = "normal"
         
+        self.entry.delete(0, END)
+
         self.statusLabel.configure(fg='red')
         self.statusLabel.configure(text="")
         self.scoreLabel.configure(text="Score: " + str(self.score))
@@ -145,12 +147,12 @@ class Game(Frame):
         if won:
             self.statusLabel.configure(fg='green')
             self.statusLabel.configure(text="you win!")
-            with open('scores\past_scores.csv', 'a', newline='') as file:
+            with open('past_scores.csv', 'a', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow((const.CURRDICT, self.score))            
         else:
             self.statusLabel.configure(text="game over...")
-            with open('scores\past_scores.csv', 'a', newline='') as file:
+            with open('past_scores.csv', 'a', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow((const.CURRDICT, self.score))            
         
