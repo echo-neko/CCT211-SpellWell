@@ -72,6 +72,9 @@ class EditDict(Frame):
 
         if self.isText(self.wordEntry.get()):
             if self.selected_i != -1:
+                if self.wordEntry.get() in list(self.dict) and self.wordEntry.get() != self.dictTable.item(self.selected_i)['values'][0]:
+                    self.statusLabel.configure(text="Word is already in dictionary")
+                    return
                 # if editing
                 self.dict.pop(self.dictTable.item(self.selected_i)['values'][0])
                 self.dictTable.item(self.selected_i, values=(self.wordEntry.get(), self.defEntry.get("1.0", 'end-1c')))
