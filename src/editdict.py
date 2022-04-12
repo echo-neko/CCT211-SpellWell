@@ -77,7 +77,11 @@ class EditDict(Frame):
                 self.dictTable.item(self.selected_i, values=(self.wordEntry.get(), self.defEntry.get("1.0", 'end-1c')))
             else:
                 # if new word
-                self.addRow(self.wordEntry.get(), self.defEntry.get("1.0",'end-1c'))
+                if self.wordEntry.get() not in list(self.dict):
+                    self.addRow(self.wordEntry.get(), self.defEntry.get("1.0",'end-1c'))
+                else:
+                    self.statusLabel.configure(text="Word is already in dictionary")
+                    return
 
             self.dict[self.wordEntry.get()] = self.defEntry.get("1.0",'end-1c')
             self.setText("", "")

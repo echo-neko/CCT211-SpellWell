@@ -1,5 +1,3 @@
-from sys import path
-path.append('\\Users\\aotis\\Desktop\\UTM\\Year 3\\Winter Term\\CCT211\\CCT211-SpellWell-main\\src')
 import constants as const
 import csv
 import matplotlib
