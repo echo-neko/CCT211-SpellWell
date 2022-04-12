@@ -35,7 +35,7 @@ class Plot():
                 plt.annotate(txt, ((range(1, (len(pltname) + 1)))[i], pltvalue[i]))  
         plt.ylabel('Score')
         plt.xlabel('Past Games')
-        plt.savefig('images/graphs/{}.png'.format(dictName))
+        plt.savefig('scores/graphs/{}.png'.format(dictName))
         #plt.show()
         plt.clf()        
 
