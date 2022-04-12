@@ -121,6 +121,8 @@ class Game(Frame):
         
         self.checkButton["state"] = "normal"
         
+        self.entry.delete(0, END)
+
         self.statusLabel.configure(fg='red')
         self.statusLabel.configure(text="")
         self.scoreLabel.configure(text="Score: " + str(self.score))
